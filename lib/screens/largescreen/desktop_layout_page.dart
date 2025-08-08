@@ -137,7 +137,7 @@ class _DesktopLayoutState extends State<DesktopLayout> {
                     Container(
                       key: homeKey,
                       width: double.infinity,
-                      padding: EdgeInsets.only(top: size.width * 0.02, left: size.width * 0.05, right: size.width * 0.05, bottom: size.width * 0.1),
+                      padding: EdgeInsets.only(top: size.width * 0.02, left: size.width * 0.05, right: size.width * 0.05, bottom: size.width * 0.04),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -319,58 +319,58 @@ class _DesktopLayoutState extends State<DesktopLayout> {
         title: "Ekasys ERP",
         description: "Ekasys ERP is a Cloud ERP Solution that Aims in Providing an integrated Inventory Management and Accounting Software to small and medium-sized Businesses.",
         videoPath: "assets/videos/ekasys.mp4",
-        link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+        link: "",
         isWeb: true,
     ),
     Project(
       title: "WAW",
       description: "You can potentially earn money by watching advertisements through certain apps, which reward users for engaging with ads",
       videoPath: "assets/videos/waw_ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+      link: "",
     ),
     Project(
         title: "Medoc HMS",
         description: "Medoc HMS provides operations management software to manage the day-to-day activities of your hospital, clinic, lab or pharmacy.",
         videoPath: "assets/videos/medoc.mp4", // Add actual video path later
-        link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+        link: "",
         isWeb: true
     ),
     Project(
       title: "Al-aysh",
       description: "E-commerce platform for customers in Kuwait and Gulf countries.",
       videoPath: "assets/videos/alaysh_ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+      link: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
     ),
     Project(
       title: "Smart - Ecommerce",
       description: "Provide all its capabilities to serve our valued customers in the local range in Kuwait and Gulf countries, by providing all our products with the best quality and the best prices that suit our customers",
       videoPath: "assets/videos/alsanafer_ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+      link: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
     ),
     Project(
         title: "OlloBillz",
         description: "Contributed to revolutionizing the retail industry by developing an in-house marketplace and reward system, streamlining operations, and enhancing customer experiences.",
         videoPath: "assets/videos/olobillz_ad.mp4",
-        link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+        link: "",
         isWeb: true
     ),
     Project(
       title: "SpotFeed",
       description: "SpotFeed is envisaged as an app that can help crowds/group of people within a particular geo - location to coordinate among each other, all without the need of exchanging phone numbers.",
       videoPath: "assets/videos/spotfeed.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+      link: "",
     ),
     Project(
       title: "Deepus EC",
       description: "This application streamlines the process of obtaining an encumbrance certificate in Kerala, allowing users to easily download the document online.",
       videoPath: "assets/videos/deepus_ec_ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+      link: "",
     ),
     Project(
         title: "Devasthanam",
         description: "Official Mobile App Of Peringottukara Devasthanam Sree Vishnumaya Swami Temple, ultimate destination for spiritual experiences and divine connection.",
         videoPath: "assets/videos/devasthanam-ad.mp4",
-        link: "https://play.google.com/store/apps/details?id=com.meesho.supply&pcampaignid=web_share",
+        link: "https://play.google.com/store/apps/details?id=com.devasthanam.app&pcampaignid=web_share",
     ),
   ];
 }

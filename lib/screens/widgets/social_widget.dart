@@ -12,10 +12,10 @@ class SocialWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: size.width > 760
-          ? CrossAxisAlignment.center
+          ? CrossAxisAlignment.start
           : CrossAxisAlignment.center,
       mainAxisAlignment: size.width > 760
-          ? MainAxisAlignment.center
+          ? MainAxisAlignment.start
           : MainAxisAlignment.center,
       children: [
 
