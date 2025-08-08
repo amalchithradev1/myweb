@@ -8,7 +8,7 @@ class DownloadCVButton extends StatelessWidget {
   const DownloadCVButton({super.key});
 
   void _launchCV() async {
-    final Uri url = Uri.parse('/assets/AmalResume_A4.pdf'); // web/public path
+    final Uri url = Uri.parse('assets/AmalResume_A4.pdf');
 
     // On web, just try to launch it directly without checking
     try {

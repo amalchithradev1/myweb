@@ -70,8 +70,8 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
 
   Widget _buildFrame() {
     final bool isWeb = widget.project.isWeb;
-    final double frameWidth = isWeb ? 222 : 90;  // Adjusted for better fit
-    final double frameHeight = isWeb ? 125 : 197 ;
+    final double frameWidth = isWeb ? 294 : 110;
+    final double frameHeight = isWeb ? 167 : 234 ;
 
     return Container(
       height: frameHeight,
@@ -109,10 +109,10 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
           widget.project.isWeb
               ? 'assets/images/desktop_frame.png'
               : 'assets/images/iphone_frame.png',
-          width: widget.project.isWeb ? 900 : 1000  ,
+          width: widget.project.isWeb ? 420: 500  ,
         ),
         Positioned(
-            top: isWeb ? 55 : 32,
+            top: isWeb ? 30 : 13,
             child: child),
       ],
     );

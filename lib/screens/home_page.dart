@@ -8,25 +8,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
+    final width = MediaQuery.of(context).size.width;
 
-
-        builder: (context,constraints){
-
-         if(constraints.maxWidth>550){
-           return DesktopLayout();
-         }
-         // else if(constraints.maxWidth>300){
-         //
-         //   return TabletLayout();}
-
-         else{
-
-           return MobileLayout();
-         }
-
-        }
-
-    );
+    if (width >= 1000) {
+      return const DesktopLayout();
+    } else if (width >= 760 && width < 1000) {
+      return const DesktopLayout();
+    } else {
+      return const MobileLayout();
+    }
   }
 }

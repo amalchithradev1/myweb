@@ -8,9 +8,9 @@ class RotatingImageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final bool isMobile = size.width < 600;
+    final bool isMobile = size.width < 760;
 
-    final double containerSize = isMobile ? size.height * 0.3 : size.height * 0.6;
+    final double containerSize = isMobile ? size.width * 0.3 : size.width * 0.4;
 
     return Container(
       height: containerSize,

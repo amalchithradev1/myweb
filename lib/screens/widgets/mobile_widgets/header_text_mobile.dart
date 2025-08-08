@@ -20,7 +20,7 @@ class HeaderTextMobileWidget extends StatelessWidget {
     return Container(
       child: Column(
         crossAxisAlignment: size.width > 600
-            ? CrossAxisAlignment.start
+            ? CrossAxisAlignment.center
             : CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
