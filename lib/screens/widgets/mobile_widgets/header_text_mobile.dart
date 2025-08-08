@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:porfolio/constants/colors.dart';
 import 'package:porfolio/screens/widgets/download_cv_widget.dart';
-import 'package:porfolio/screens/widgets/socail_section.dart';
 import 'package:porfolio/screens/widgets/social_widget.dart';
 import 'package:porfolio/screens/widgets/text_widet.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -19,7 +18,7 @@ class HeaderTextMobileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        crossAxisAlignment: size.width > 600
+        crossAxisAlignment: size.width > 760
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -41,18 +40,15 @@ class HeaderTextMobileWidget extends StatelessWidget {
             text2: "UX Designer",
           ),
           RotatingImageContainer(),
-          SizedBox(
-            width: double.infinity,
-            child: TextWidget(
-                sSize: size,
-                alignment: TextAlign.center,
-                text:
-                "I break down complex user experinece problems to create integritiy focussed solutions that connect billions of people",
-                size: 10,
-                // color:AppColors.paleSlate,
-                color: AppColors.ebony,
-                fw: FontWeight.normal),
-          ),
+          TextWidget(
+              sSize: size,
+              alignment: TextAlign.center,
+              text:
+              "I break down complex user experinece problems to create integritiy focussed solutions that connect billions of people",
+              size: 10,
+              // color:AppColors.paleSlate,
+              color: AppColors.ebony,
+              fw: FontWeight.normal),
         ],
       ),
     );
@@ -117,7 +113,7 @@ class Social_large extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          SocialWidget(size: size,)
+          SocialWidget(size: size,position: 1,)
         ],
       ),
     );

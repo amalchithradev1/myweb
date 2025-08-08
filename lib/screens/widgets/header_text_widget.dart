@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:porfolio/constants/colors.dart';
 import 'package:porfolio/screens/widgets/download_cv_widget.dart';
-import 'package:porfolio/screens/widgets/socail_section.dart';
 import 'package:porfolio/screens/widgets/social_widget.dart';
 import 'package:porfolio/screens/widgets/text_widet.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -113,7 +112,7 @@ class Social_large extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          SocialWidget(size: size,)
+          SocialWidget(size: size,position: 0,)
         ],
       ),
     );

@@ -6,15 +6,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 class SocialWidget extends StatelessWidget {
   final Size size;
-  const SocialWidget({super.key, required this.size});
+  final int position;
+  const SocialWidget({super.key, required this.size, required this.position});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: size.width > 760
+      crossAxisAlignment: position == 0
           ? CrossAxisAlignment.start
           : CrossAxisAlignment.center,
-      mainAxisAlignment: size.width > 760
+      mainAxisAlignment: position == 0
           ? MainAxisAlignment.start
           : MainAxisAlignment.center,
       children: [

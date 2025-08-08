@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     if (width >= 1000) {
       return const DesktopLayout();
     } else if (width >= 760 && width < 1000) {
-      return const DesktopLayout();
+      return const TabletLayout();
     } else {
       return const MobileLayout();
     }
