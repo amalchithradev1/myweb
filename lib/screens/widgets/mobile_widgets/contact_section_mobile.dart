@@ -6,13 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 class ContactMobileSection extends StatelessWidget {
   const ContactMobileSection({super.key});
 
-  void _launch(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,27 +38,35 @@ class ContactMobileSection extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.email, color: Colors.white),
-                onPressed: () => _launch("amalchithradev@gmail.com"),
+                onPressed: () => _launch("mailto:amalchithradev@gmail.com"),
                 tooltip: 'Email',
               ),
               IconButton(
                 icon: const Icon(Icons.phone, color: Colors.white),
-                onPressed: () => _launch("tel:+91 9037351180"),
+                onPressed: () => _launch("tel:+919037351180"),
                 tooltip: 'Phone',
               ),
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.linkedin, color: Colors.white),
-                onPressed: () => _launch("https://www.linkedin.com/in/yourprofile"),
+                icon: const FaIcon(
+                    FontAwesomeIcons.linkedin, color: Colors.white),
+                onPressed: () =>
+                    _openExternalUrl(
+                        'https://www.linkedin.com/in/amalchithradev/'),
                 tooltip: 'LinkedIn',
               ),
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.github, color: Colors.white),
-                onPressed: () => _launch("https://github.com/yourusername"),
+                icon: const FaIcon(
+                    FontAwesomeIcons.github, color: Colors.white),
+                onPressed: () =>
+                    _openExternalUrl('https://github.com/amalchithradev1'),
                 tooltip: 'GitHub',
               ),
               IconButton(
-                icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.white),
-                onPressed: () => _launch("https://yourportfolio.com"),
+                icon: const FaIcon(
+                    FontAwesomeIcons.instagram, color: Colors.white),
+                onPressed: () =>
+                    _openExternalUrl(
+                        'https://www.instagram.com/_amal_abi_?utm_source=qr&igsh=aDd3ZGo0bTYwdm11'),
                 tooltip: 'Instagram',
               ),
             ],
@@ -79,5 +80,23 @@ class ContactMobileSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _launch(String command) async {
+    final Uri uri = Uri.parse(command);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $command';
+    }
+  }
+
+  Future<void> _openExternalUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $urlString';
+    }
   }
 }

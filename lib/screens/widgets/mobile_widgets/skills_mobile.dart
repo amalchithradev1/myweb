@@ -170,13 +170,9 @@ class _SkillCardState extends State<_SkillMobileCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         width: widget.size.width > 800 ? widget.size.width * 0.1 : widget.size.width * 0.8,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          border: Border.all(color: Colors.black.withOpacity(0.08),width: 0.5),
-        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             if(widget.align == "left")Flexible(
               flex: 6,

@@ -40,7 +40,7 @@ class SocialWidget extends StatelessWidget {
                 throw 'Could not launch $url';
               }
             },
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.linkedinIn,
               color: Color(0XFF01529A),
               size: 15,

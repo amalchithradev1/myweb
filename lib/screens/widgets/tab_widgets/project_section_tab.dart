@@ -125,7 +125,7 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
       onExit: (_) => _handleHover(false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        width: 500,
+        width: MediaQuery.of(context).size.width * 0.8,
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: Colors.transparent,
@@ -135,7 +135,7 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                width: 500,
+                width: MediaQuery.of(context).size.width * 0.6,
                 height: 300,
                 decoration: BoxDecoration(
                   // color: Colors.yellow,
@@ -175,12 +175,14 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
                   "View in Play Store →",
                   style: GoogleFonts.b612(
                     color: Colors.blueAccent,
-                    fontSize: 14,
+                    fontSize: 11,
                     decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w500,
+                    decorationColor: Colors.grey,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

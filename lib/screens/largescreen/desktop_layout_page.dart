@@ -137,7 +137,7 @@ class _DesktopLayoutState extends State<DesktopLayout> {
                     Container(
                       key: homeKey,
                       width: double.infinity,
-                      padding: EdgeInsets.only(top: size.width * 0.02, left: size.width * 0.05, right: size.width * 0.05, bottom: size.width * 0.04),
+                      padding: EdgeInsets.only(top: size.height * 0.02  , left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.04),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,7 +177,7 @@ class _DesktopLayoutState extends State<DesktopLayout> {
                     ],
                   ),
                 ),
-                SizedBox(height: size.height * 0.05,),
+                SizedBox(height: 50),
                 Container(key: aboutKey,
                     color: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),

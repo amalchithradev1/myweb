@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart'; // 👈 Added
 
 import '../project_tile_card.dart';
 
@@ -22,22 +23,19 @@ class ProjectMobileTile extends StatefulWidget {
 }
 
 class _ProjectMobileTileState extends State<ProjectMobileTile> {
-
   final List<Color> lightColors = [
-    Color(0xFFFFF3E0), // Light Orange
-    Color(0xFFE1F5FE), // Light Blue
-    Color(0xFFE8F5E9), // Light Green
-    Color(0xFFFFEBEE), // Light Pink
-    Color(0xFFF3E5F5), // Light Purple
-    Color(0xFFFFF9C4), // Light Yellow
-    Color(0xFFD7CCC8), // Light Brown/Grey
-    Color(0xFFF1F8E9), // Green Tint
-    Color(0xFFE0F7FA), // Cyan Tint
+    const Color(0xFFFFF3E0), // Light Orange
+    const Color(0xFFE1F5FE), // Light Blue
+    const Color(0xFFE8F5E9), // Light Green
+    const Color(0xFFFFEBEE), // Light Pink
+    const Color(0xFFF3E5F5), // Light Purple
+    const Color(0xFFFFF9C4), // Light Yellow
+    const Color(0xFFD7CCC8), // Light Brown/Grey
+    const Color(0xFFF1F8E9), // Green Tint
+    const Color(0xFFE0F7FA), // Cyan Tint
   ];
 
-
   late VideoPlayerController _controller;
-  bool _isHovered = false;
 
   @override
   void initState() {
@@ -61,17 +59,23 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
     }
   }
 
-  void _handleHover(bool hovering) {
-    setState(() => _isHovered = hovering);
-    if (_controller.value.isInitialized) {
-      hovering ? _controller.play() : _controller.pause();
+  void _onVisibilityChanged(VisibilityInfo info) {
+    // Play if more than 50% visible
+    if (info.visibleFraction > 0.5) {
+      if (!_controller.value.isPlaying) _controller.play();
+    } else {
+      if (_controller.value.isPlaying) _controller.pause();
     }
   }
 
   Widget _buildFrame() {
     final bool isWeb = widget.project.isWeb;
-    final double frameWidth = isWeb ? 242 : 105;
-    final double frameHeight = isWeb ? 140 : 220 ;
+    final double frameWidth = isWeb
+        ? MediaQuery.of(context).size.width * 0.6
+        : MediaQuery.of(context).size.width * 0.25;
+    final double frameHeight = isWeb
+        ? MediaQuery.of(context).size.width * 0.4
+        : MediaQuery.of(context).size.width * 0.6;
 
     return Container(
       height: frameHeight,
@@ -95,37 +99,23 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
             ),
           ),
         )
-            : Center(child: CircularProgressIndicator()),
+            : const Center(child: CircularProgressIndicator()),
       ),
     );
   }
 
   Widget _buildDeviceFrameWrapper({required Widget child}) {
-    final bool isWeb = widget.project.isWeb;
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          widget.project.isWeb
-              ? 'assets/images/desktop_frame.png'
-              : 'assets/images/iphone_frame.png',
-          width: widget.project.isWeb ? 420: 500  ,
-        ),
-        Positioned(
-            top: isWeb ? 50 : 20,
-            child: child),
-      ],
-    );
+    return child;
   }
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => _handleHover(true),
-      onExit: (_) => _handleHover(false),
+    return VisibilityDetector(
+      key: Key('project_tile_${widget.index}'),
+      onVisibilityChanged: _onVisibilityChanged,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        width: 500,
+        width: double.infinity,
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: Colors.transparent,
@@ -135,18 +125,17 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                width: 500,
-                height: 300,
-                decoration: BoxDecoration(
-                  // color: Colors.yellow,
-                  color: lightColors[widget.index % lightColors.length],
-                  borderRadius: BorderRadius.circular(12),
-
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: _buildDeviceFrameWrapper(child: _buildFrame()),
-                )),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 300,
+              decoration: BoxDecoration(
+                color: lightColors[widget.index % lightColors.length],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: _buildDeviceFrameWrapper(child: _buildFrame()),
+              ),
+            ),
             const SizedBox(height: 16),
             Text(
               widget.project.title,

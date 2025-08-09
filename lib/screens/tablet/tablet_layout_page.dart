@@ -13,9 +13,9 @@ import '../widgets/mobile_widgets/header_text_mobile.dart';
 import '../widgets/mobile_widgets/my_services_mobile_widget.dart';
 import '../widgets/mobile_widgets/particle_animation_home_section.dart';
 import '../widgets/mobile_widgets/particle_animation_service_section.dart';
-import '../widgets/mobile_widgets/skills_mobile.dart';
 import '../widgets/project_tile_card.dart';
 import '../widgets/tab_widgets/project_section_tab.dart';
+import '../widgets/tab_widgets/skills_tab_widget.dart';
 
 class TabletLayout extends StatefulWidget {
   const TabletLayout({super.key});
@@ -171,7 +171,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                         ),
                         Container(
                           key: homeKey,
-                          padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
+                          padding: EdgeInsets.only(top: size.height * 0.02  , left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.04),
                           child: Stack(
                             children: [
                               AnimatedParticleMobileHomeBackground(),
@@ -268,7 +268,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: size.height * 0.05),
-                              MySkillsMobileWidget(size: size)
+                              MySkillsTabWidget(size: size)
                             ],
                           ),
                         ),

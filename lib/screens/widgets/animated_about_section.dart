@@ -37,7 +37,7 @@ class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection>
 
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: 500,
       // color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Row(
@@ -78,12 +78,12 @@ class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection>
             }),
           ),
           Container(
-            height: 350,
+            height: 450,
             width: MediaQuery.of(context).size.width * 0.25,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(200),
+              borderRadius: BorderRadius.circular(70),
               child: Opacity(
-                opacity: 0.8,
+                opacity: 0.7,
                 child: Image.asset("assets/images/me.png", fit: BoxFit.cover),
               ),
             ),
