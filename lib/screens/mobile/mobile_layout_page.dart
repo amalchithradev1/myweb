@@ -274,43 +274,43 @@ class _MobileLayoutState extends State<MobileLayout> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          key: services,
-                          // color: AppColors.ebony,
-                          color: Colors.transparent,
-                          padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
-                          child: Stack(
-                            children: [
-                              const AnimatedParticleMobileServiceBackground(),
-                              Column(
-                                children: [
-                                  GradientText(
-                                    "My Quality Services",
-                                    colors: [
-                                      Color(0XFF01529A),
-                                      Color(0XFF45D1FC),
-                                    ],
-                                    style: GoogleFonts.b612(
-                                        fontSize: size.width * 0.05,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: size.height * 0.02),
-                                  Text(
-                                    'Services crafted from real-world experience in mobile apps, payment integration, Firebase, APIs, and CI/CD.',
-                                    style: GoogleFonts.b612(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w100,
-                                      color: Colors.black87,
-                                      letterSpacing: 1,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  MyServicesMobileWidget(size: size),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   key: services,
+                        //   // color: AppColors.ebony,
+                        //   color: Colors.transparent,
+                        //   padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
+                        //   child: Stack(
+                        //     children: [
+                        //       const AnimatedParticleMobileServiceBackground(),
+                        //       Column(
+                        //         children: [
+                        //           GradientText(
+                        //             "My Quality Services",
+                        //             colors: [
+                        //               Color(0XFF01529A),
+                        //               Color(0XFF45D1FC),
+                        //             ],
+                        //             style: GoogleFonts.b612(
+                        //                 fontSize: size.width * 0.05,
+                        //                 fontWeight: FontWeight.bold),
+                        //           ),
+                        //           SizedBox(height: size.height * 0.02),
+                        //           Text(
+                        //             'Services crafted from real-world experience in mobile apps, payment integration, Firebase, APIs, and CI/CD.',
+                        //             style: GoogleFonts.b612(
+                        //               fontSize: 10,
+                        //               fontWeight: FontWeight.w100,
+                        //               color: Colors.black87,
+                        //               letterSpacing: 1,
+                        //             ),
+                        //           ),
+                        //           SizedBox(height: 20),
+                        //           MyServicesMobileWidget(size: size),
+                        //         ],
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         Container(
                           color: Colors.white,
                           // color: Colors.transparent,
@@ -328,9 +328,9 @@ class _MobileLayoutState extends State<MobileLayout> {
                                     Color(0XFF01529A),
                                     Color(0XFF45D1FC),
                                   ],
-                                  style: GoogleFonts.b612(
-                                    fontSize: size.width * 0.030,
-                                    fontWeight: FontWeight.bold,
+                               style: GoogleFonts.b612(
+                                  fontSize: size.width * 0.05,
+                                  fontWeight: FontWeight.bold
                                   ),
                                 ),
                                 SizedBox(height: size.height * 0.05),
@@ -404,8 +404,14 @@ class _MobileLayoutState extends State<MobileLayout> {
     Project(
       title: "Al-aysh",
       description: "E-commerce platform for customers in Kuwait and Gulf countries.",
-      videoPath: "assets/videos/alaysh_ad.mp4",
+      videoPath: "assets/videos/alaysh.mp4",
       link: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
+    ),
+    Project(
+      title: "Fragranzia",
+      description: "Perfume E-commerce App – A mobile shopping app for exploring and purchasing premium perfumes.",
+      videoPath: "assets/videos/fragranzia.mp4",
+      link: "",
     ),
     Project(
       title: "Smart - Ecommerce",

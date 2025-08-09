@@ -96,11 +96,11 @@ class MySkillsTabWidget extends StatelessWidget {
         int crossAxisCount = 1;
 
         if (constraints.maxWidth > 1250) {
-          crossAxisCount = 6;
+          crossAxisCount = 3;
         } else if (constraints.maxWidth > 1150) {
-          crossAxisCount = 5;
-        } else if (constraints.maxWidth > 900) {
           crossAxisCount = 2;
+        } else if (constraints.maxWidth > 900) {
+          crossAxisCount = 1;
         }else if (constraints.maxWidth > 700) {
           crossAxisCount = 1;
         }else if (constraints.maxWidth > 500) {

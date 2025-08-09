@@ -78,13 +78,13 @@ class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection>
             }),
           ),
           Container(
-            height: 450,
-            width: MediaQuery.of(context).size.width * 0.25,
+            height: 350,
+            width: MediaQuery.of(context).size.width * 0.2,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(70),
+              borderRadius: BorderRadius.circular(20),
               child: Opacity(
-                opacity: 0.7,
-                child: Image.asset("assets/images/me.png", fit: BoxFit.cover),
+                opacity: 0.8,
+                child: Image.asset("assets/images/me1.jpeg", fit: BoxFit.cover),
               ),
             ),
           ),

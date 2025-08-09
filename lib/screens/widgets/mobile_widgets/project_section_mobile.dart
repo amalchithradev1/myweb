@@ -75,7 +75,7 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
         : MediaQuery.of(context).size.width * 0.25;
     final double frameHeight = isWeb
         ? MediaQuery.of(context).size.width * 0.4
-        : MediaQuery.of(context).size.width * 0.6;
+        : MediaQuery.of(context).size.width * 0.53;
 
     return Container(
       height: frameHeight,

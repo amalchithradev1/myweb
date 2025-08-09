@@ -96,7 +96,7 @@ class MySkillsWidget extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             mainAxisSpacing: 30,
             crossAxisSpacing: 30,
-            childAspectRatio: 1,
+            childAspectRatio: 1.1 ,
 
             children: skills.map((skill) {
               return _SkillCard(
