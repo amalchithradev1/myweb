@@ -9,62 +9,85 @@ class MySkillsMobileWidget extends StatelessWidget {
   MySkillsMobileWidget({super.key, required this.size});
 
   final List<Map<String, dynamic>> skills = [
-    const {
+    {
       "title": "Flutter & Dart",
       "description": "3.3+ years building cross-platform mobile apps with scalable architecture.",
       "icon": FontAwesomeIcons.mobileScreen,
+      "iconColor": const Color(0xFF02569B), // Flutter Blue
+      "align": "left"
     },
-    const {
+    {
       "title": "Android",
       "description": "Experience building and deploying Android apps with platform-specific integrations.",
       "icon": FontAwesomeIcons.android,
+      "iconColor": const Color(0xFF3DDC84), // Android Green
+      "align": "right"
     },
-    const {
+    {
       "title": "iOS",
       "description": "Expertise in developing iOS apps using Flutter with smooth performance and native feel.",
       "icon": FontAwesomeIcons.apple,
+      "iconColor": Colors.black, // Apple Black
+      "align": "left"
     },
-    const {
+    {
       "title": "Website",
       "description": "Developed responsive, interactive websites using Flutter Web and modern web practices.",
       "icon": FontAwesomeIcons.globe,
+      "iconColor": const Color(0xFF4285F4), // Google Blue
+      "align": "right"
     },
-    const {
+    {
       "title": "Firebase Suite",
       "description": "Realtime DB, Auth, Firestore, Crashlytics, FCM for complete app backend.",
       "icon": FontAwesomeIcons.fire,
+      "iconColor": const Color(0xFFFFCA28), // Firebase Yellow
+      "align": "left",
     },
     {
       "title": "State Management",
       "description": "Riverpod, Provider – Clean architecture with MVVM patterns.",
       "icon": FontAwesomeIcons.diagramProject,
+      "iconColor": const Color(0xFF4CAF50), // Green
+      "align": "right"
     },
-    const {
+    {
       "title": "API Integration",
       "description": "Dio, http, REST APIs – robust backend communication.",
       "icon": FontAwesomeIcons.networkWired,
+      "iconColor": const Color(0xFF01529A), // Navy Blue
+      "align": "left"
     },
-    const {
+    {
       "title": "Database & Storage",
       "description": "Hive, SharedPreferences, SQLite for local persistence.",
       "icon": FontAwesomeIcons.database,
+      "iconColor": const Color(0xFF616161), // Grey
+      "align": "right"
     },
-    const {
+    {
       "title": "CI/CD & Deployment",
       "description": "GitHub Actions, Codemagic for automated deployment pipelines.",
       "icon": FontAwesomeIcons.codeBranch,
+      "iconColor": const Color(0xFF4078C0), // GitHub Blue
+      "align": "left"
     },
-    const {
+    {
       "title": "Payments & POS",
       "description": "Integrated Razorpay, UPI, Card, Plutus APIs & POS devices.",
       "icon": FontAwesomeIcons.creditCard,
+      "iconColor": const Color(0xFF003087), // Card Blue
+      "align": "right"
     },
-    const {
+    {
       "title": "UI/UX & Tools",
       "description": "Pixel-perfect Flutter UIs with Figma, HTML/CSS understanding.",
       "icon": FontAwesomeIcons.palette,
+      "iconColor": const Color(0xFF9C27B0), // Purple
+      "align": "left"
     },
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +106,7 @@ class MySkillsMobileWidget extends StatelessWidget {
         }else if (constraints.maxWidth > 500) {
           crossAxisCount = 2;
         }else{
-          crossAxisCount = 2;
+          crossAxisCount = 1;
         }
 
 
@@ -96,7 +119,7 @@ class MySkillsMobileWidget extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            childAspectRatio: 1.3,
+            childAspectRatio: 3.4,
 
             children: skills.map((skill) {
               return _SkillMobileCard(
@@ -104,6 +127,8 @@ class MySkillsMobileWidget extends StatelessWidget {
                 description: skill['description'],
                 icon: skill['icon'],
                 size: size,
+                align: skill['align'],
+                color: skill['iconColor'],
               );
             }).toList(),
           ),
@@ -118,12 +143,16 @@ class _SkillMobileCard extends StatefulWidget {
   final String description;
   final IconData icon;
   final Size size;
+  final String align;
+  final Color color;
 
   const _SkillMobileCard({
     required this.title,
     required this.description,
     required this.icon,
     required this.size,
+    required this.align,
+    required this.color,
   });
 
   @override
@@ -141,44 +170,64 @@ class _SkillCardState extends State<_SkillMobileCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         width: widget.size.width > 800 ? widget.size.width * 0.1 : widget.size.width * 0.8,
-        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          gradient: isHovered
-              ? LinearGradient(colors: [Color(0XFF45D1FC),Colors.white],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            stops: [0.0, 0.3],
-          )
-              : LinearGradient(colors: [Colors.white, Colors.white],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            stops: [0.0, 0.1],
-          ),
           borderRadius: BorderRadius.circular(100),
-          border: Border.all(color: Color(0XFF01529A).withOpacity(0.5),width: 0.5),
+          border: Border.all(color: Colors.black.withOpacity(0.08),width: 0.5),
         ),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FaIcon(widget.icon, size: 20, color: isHovered ? Color(0XFF45D1FC) : Color(0XFF01529A),),
-            const SizedBox(height: 10),
-            Text(
-              textAlign: TextAlign.center,
-              widget.title,
-              style: GoogleFonts.b612(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: isHovered ? Colors.black : Colors.black,
+            if(widget.align == "left")Flexible(
+              flex: 6,
+              child: Text(
+                textAlign: TextAlign.center,
+                widget.description,
+                style: GoogleFonts.b612(
+                  fontSize: 10,
+                  fontWeight: FontWeight.normal,
+                  color: isHovered ? Colors.black54 : Colors.black54,
+                ),
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              textAlign: TextAlign.center,
-              widget.description,
-              style: GoogleFonts.b612(
-                fontSize: 8,
-                fontWeight: FontWeight.normal,
-                color: isHovered ? Colors.black54 : Colors.black54,
+            Flexible(
+              flex: 4,
+              child: Container(
+                width: 110,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(300),
+                  border: Border.all(color: Color(0XFF01529A).withOpacity(0.2),width: 0.5),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(widget.icon, size: 25, color: widget.color.withOpacity(0.6)),
+                    const SizedBox(height: 5),
+                    Text(
+                      textAlign: TextAlign.center,
+                      widget.title,
+                      style: GoogleFonts.b612(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: isHovered ? Colors.black : Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            if(widget.align == "right")Flexible(
+              flex: 6,
+              child: Text(
+                textAlign: TextAlign.center,
+                widget.description,
+                style: GoogleFonts.b612(
+                  fontSize: 10,
+                  fontWeight: FontWeight.normal,
+                  color: isHovered ? Colors.black54 : Colors.black54,
+                ),
               ),
             ),
           ],

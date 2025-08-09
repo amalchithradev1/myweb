@@ -70,8 +70,8 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
 
   Widget _buildFrame() {
     final bool isWeb = widget.project.isWeb;
-    final double frameWidth = isWeb ? 294 : 110;
-    final double frameHeight = isWeb ? 167 : 234 ;
+    final double frameWidth = isWeb ? 242 : 105;
+    final double frameHeight = isWeb ? 140 : 220 ;
 
     return Container(
       height: frameHeight,
@@ -112,7 +112,7 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
           width: widget.project.isWeb ? 420: 500  ,
         ),
         Positioned(
-            top: isWeb ? 30 : 13,
+            top: isWeb ? 50 : 20,
             child: child),
       ],
     );
@@ -167,7 +167,7 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
                 color: Colors.black87,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             if (widget.project.link.isNotEmpty)
               GestureDetector(
                 onTap: () => _launchPlayStore(widget.project.link),
@@ -175,12 +175,14 @@ class _ProjectMobileTileState extends State<ProjectMobileTile> {
                   "View in Play Store →",
                   style: GoogleFonts.b612(
                     color: Colors.blueAccent,
-                    fontSize: 14,
+                    fontSize: 11,
                     decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w500,
+                    decorationColor: Colors.grey,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
