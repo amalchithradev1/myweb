@@ -211,7 +211,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                               ),
 
                               const SizedBox(height: 20,),
-                              CountWidget(size: size,text1: "20+",text2: "Projects",text3: "Completed",),
+                              CountWidget(size: size,text1: "15+",text2: "Projects",text3: "Completed",),
                               const SizedBox(height: 20,),
                               Divider(
                                 color: AppColors.paleSlate,
@@ -385,64 +385,74 @@ class _TabletLayoutState extends State<TabletLayout> {
       title: "Ekasys ERP",
       description: "Ekasys ERP is a Cloud ERP Solution that Aims in Providing an integrated Inventory Management and Accounting Software to small and medium-sized Businesses.",
       videoPath: "assets/videos/ekasys.mp4",
-      link: "",
+      playStoreLink: "",
+      appStoreLink: "",
       isWeb: true,
     ),
     Project(
       title: "WAW",
       description: "You can potentially earn money by watching advertisements through certain apps, which reward users for engaging with ads",
       videoPath: "assets/videos/waw_ad.mp4",
-      link: "",
+      playStoreLink: "",
+      appStoreLink: "",
     ),
     Project(
         title: "Medoc HMS",
         description: "Medoc HMS provides operations management software to manage the day-to-day activities of your hospital, clinic, lab or pharmacy.",
         videoPath: "assets/videos/medoc.mp4", // Add actual video path later
-        link: "",
+        playStoreLink: "",
+        appStoreLink: "",
         isWeb: true
     ),
     Project(
       title: "Al-aysh",
       description: "E-commerce platform for customers in Kuwait and Gulf countries.",
       videoPath: "assets/videos/alaysh.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
+      appStoreLink: "https://apps.apple.com/in/app/al-aysh-supermarket-shopping/id6449591948",
     ),
     Project(
       title: "Fragranzia",
       description: "Perfume E-commerce App – A mobile shopping app for exploring and purchasing premium perfumes.",
       videoPath: "assets/videos/fragranzia.mp4",
-      link: "",
+      playStoreLink: "",
+      appStoreLink: "",
     ),
     Project(
       title: "Smart - Ecommerce",
       description: "Provide all its capabilities to serve our valued customers in the local range in Kuwait and Gulf countries, by providing all our products with the best quality and the best prices that suit our customers",
       videoPath: "assets/videos/alsanafer_ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
+      appStoreLink: '',
     ),
     Project(
         title: "OlloBillz",
         description: "Contributed to revolutionizing the retail industry by developing an in-house marketplace and reward system, streamlining operations, and enhancing customer experiences.",
         videoPath: "assets/videos/olobillz_ad.mp4",
-        link: "",
+        playStoreLink: "",
+        appStoreLink: "",
         isWeb: true
     ),
     Project(
       title: "SpotFeed",
       description: "SpotFeed is envisaged as an app that can help crowds/group of people within a particular geo - location to coordinate among each other, all without the need of exchanging phone numbers.",
       videoPath: "assets/videos/spotfeed.mp4",
-      link: "",
+      playStoreLink: "",
+      appStoreLink: "",
     ),
     Project(
       title: "Deepus EC",
       description: "This application streamlines the process of obtaining an encumbrance certificate in Kerala, allowing users to easily download the document online.",
       videoPath: "assets/videos/deepus_ec_ad.mp4",
-      link: "",
+      playStoreLink: "",
+      appStoreLink: "",
     ),
     Project(
       title: "Devasthanam",
       description: "Official Mobile App Of Peringottukara Devasthanam Sree Vishnumaya Swami Temple, ultimate destination for spiritual experiences and divine connection.",
       videoPath: "assets/videos/devasthanam-ad.mp4",
-      link: "https://play.google.com/store/apps/details?id=com.devasthanam.app&pcampaignid=web_share",
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.devasthanam.app&pcampaignid=web_share",
+      appStoreLink: "",
     ),
   ];
 }

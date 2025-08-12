@@ -33,6 +33,7 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
     Color(0xFFD7CCC8), // Light Brown/Grey
     Color(0xFFF1F8E9), // Green Tint
     Color(0xFFE0F7FA), // Cyan Tint
+    const Color(0xFFFFF3E0), // Light Orange
   ];
 
 
@@ -168,9 +169,9 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
               ),
             ),
             const SizedBox(height: 12),
-            if (widget.project.link.isNotEmpty)
+            if (widget.project.playStoreLink.isNotEmpty)
               GestureDetector(
-                onTap: () => _launchPlayStore(widget.project.link),
+                onTap: () => _launchPlayStore(widget.project.playStoreLink),
                 child: Text(
                   "View in Play Store →",
                   style: GoogleFonts.b612(
@@ -183,6 +184,21 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
                 ),
               ),
             const SizedBox(height: 10),
+            if (widget.project.appStoreLink.isNotEmpty)
+              GestureDetector(
+                onTap: () => _launchPlayStore(widget.project.appStoreLink),
+                child: Text(
+                  "View in App Store →",
+                  style: GoogleFonts.b612(
+                    color: Colors.blueAccent,
+                    fontSize: 11,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            if (widget.project.appStoreLink.isNotEmpty)const SizedBox(height: 10),
           ],
         ),
       ),

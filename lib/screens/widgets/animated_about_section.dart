@@ -13,9 +13,9 @@ class AnimatedAboutScrollSection extends StatefulWidget {
 
 class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection> {
   final List<String> lines = [
-    "Software Developer with 3 years of experience,",
+    "Software Developer with 3.3 years of experience,",
     "specializing in mobile and web app development.",
-    "I have successfully completed 13 projects,",
+    "I have successfully completed 15+ projects,",
     "delivering high-quality solutions with a focus on UI/UX design.",
     "My expertise lies in building efficient, scalable,",
     "and user-friendly applications using modern technologies.",

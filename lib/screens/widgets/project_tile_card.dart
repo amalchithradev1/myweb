@@ -8,7 +8,8 @@ class Project {
   final String title;
   final String description;
   final String videoPath;
-  final String link;
+  final String playStoreLink;
+  final String appStoreLink;
   final bool isWeb;
 
 
@@ -16,7 +17,8 @@ class Project {
     required this.title,
     required this.description,
     required this.videoPath,
-    required this.link,
+    required this.playStoreLink,
+    required this.appStoreLink,
     this.isWeb = false,
 
   });
@@ -52,6 +54,7 @@ class _ProjectTileState extends State<ProjectTile> {
     Color(0xFFD7CCC8), // Light Brown/Grey
     Color(0xFFF1F8E9), // Green Tint
     Color(0xFFE0F7FA), // Cyan Tint
+    Color(0xFFFFF3E0), // Light Orange
   ];
 
 
@@ -187,20 +190,39 @@ class _ProjectTileState extends State<ProjectTile> {
               ),
             ),
             const SizedBox(height: 12),
-            if (widget.project.link.isNotEmpty)
-              GestureDetector(
-                onTap: () => _launchPlayStore(widget.project.link),
-                child: Text(
-                  "View in Play Store →",
-                  style: GoogleFonts.b612(
-                    color: Colors.blueAccent,
-                    fontSize: 11,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.grey,
-                    fontWeight: FontWeight.bold,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                if (widget.project.playStoreLink.isNotEmpty)
+                  GestureDetector(
+                    onTap: () => _launchPlayStore(widget.project.playStoreLink),
+                    child: Text(
+                      "View in Play Store →",
+                      style: GoogleFonts.b612(
+                        color: Colors.blueAccent,
+                        fontSize: 11,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                if (widget.project.appStoreLink.isNotEmpty)
+                  GestureDetector(
+                    onTap: () => _launchPlayStore(widget.project.appStoreLink),
+                    child: Text(
+                      "View in App Store →",
+                      style: GoogleFonts.b612(
+                        color: Colors.blueAccent,
+                        fontSize: 11,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
             const SizedBox(height: 10),
           ],
         ),

@@ -12,11 +12,11 @@ class AboutSectionMobile extends StatefulWidget {
 
 class _AboutSectionMobileState extends State<AboutSectionMobile> {
   final List<String> lines = [
-    "Software Developer with 3 years ,",
+    "Software Developer with 3.3 years ,",
     "of experience specializing in",
     "mobile and web app development.",
     "I have successfully completed",
-    "13 projects, delivering",
+    "15+ projects, delivering",
     "high-quality solutions",
     "with a focus on UI/UX design. My",
     "expertise lies in building efficient,",
