@@ -31,7 +31,7 @@ class _DesktopLayoutState extends State<DesktopLayout> {
   final homeKey = GlobalKey();
   final aboutKey = GlobalKey();
   final skillsKey = GlobalKey();
-  final services = GlobalKey();
+  // final services = GlobalKey();
   final projectsKey = GlobalKey();
   final contactKey = GlobalKey();
 
@@ -99,11 +99,11 @@ class _DesktopLayoutState extends State<DesktopLayout> {
               onPressed: () => scrollToSection(skillsKey),
               child: Text("Skills", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
             ),
-            const SizedBox(width: 30,),
-            TextButton(
-              onPressed: () => scrollToSection(services),
-              child: Text("Services", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
+            // const SizedBox(width: 30,),
+            // TextButton(
+            //   onPressed: () => scrollToSection(services),
+            //   child: Text("Services", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
+            // ),
             const SizedBox(width: 30,),
             TextButton(
               onPressed: () => scrollToSection(projectsKey),
@@ -315,6 +315,14 @@ class _DesktopLayoutState extends State<DesktopLayout> {
   }
 
   final List<Project> projects = [
+    Project(
+      title: "OLOPO",
+      description: "Olopo is a super app incorporating a range of mini apps and services designed to meet different parts of users' lives. Within the app, users have the ability to shop, accumulate loyalty points, and make use of these points across various platforms.",
+      videoPath: "assets/videos/olopo-mob.mp4",
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.wac.olopouser&pcampaignid=web_share",
+      appStoreLink: "https://apps.apple.com/in/app/olopo/id6651817861",
+      isWeb: false,
+    ),
     Project(
         title: "Ekasys ERP",
         description: "Ekasys ERP is a Cloud ERP Solution that Aims in Providing an integrated Inventory Management and Accounting Software to small and medium-sized Businesses.",
