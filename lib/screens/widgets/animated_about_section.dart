@@ -13,7 +13,7 @@ class AnimatedAboutScrollSection extends StatefulWidget {
 
 class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection> {
   final List<String> lines = [
-    "Software Developer with 3.3 years of experience,",
+    "Software Developer with 3.9 years of experience,",
     "specializing in mobile and web app development.",
     "I have successfully completed 15+ projects,",
     "delivering high-quality solutions with a focus on UI/UX design.",
@@ -79,12 +79,12 @@ class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection>
           ),
           Container(
             height: 350,
-            width: MediaQuery.of(context).size.width * 0.2,
+            width: MediaQuery.of(context).size.width * 0.25,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Opacity(
                 opacity: 0.8,
-                child: Image.asset("assets/images/me1.jpeg", fit: BoxFit.cover),
+                child: Image.asset("assets/images/me4.png", fit: BoxFit.cover),
               ),
             ),
           ),

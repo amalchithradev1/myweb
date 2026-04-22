@@ -201,7 +201,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CountWidget(size: size,text1: "3",text2: "Years of",text3: "Experience",),
+                              CountWidget(size: size,text1: "3.9",text2: "Years of",text3: "Experience",),
                               const SizedBox(height: 20,),
                               Divider(
                                 color: AppColors.paleSlate,
@@ -211,7 +211,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                               ),
 
                               const SizedBox(height: 20,),
-                              CountWidget(size: size,text1: "15+",text2: "Projects",text3: "Completed",),
+                              CountWidget(size: size,text1: "25+",text2: "Projects",text3: "Completed",),
                               const SizedBox(height: 20,),
                               Divider(
                                 color: AppColors.paleSlate,

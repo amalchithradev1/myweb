@@ -11,61 +11,67 @@ class MySkillsWidget extends StatelessWidget {
 
   final List<Map<String, dynamic>> skills = [
     const {
-      "title": "Flutter & Dart",
-      "description": "3.3+ years building cross-platform mobile apps with scalable architecture.",
+      "title": "Languages",
+      "description": "Dart, Kotlin, Java, HTML",
+      "icon": FontAwesomeIcons.code,
+    },
+    const {
+      "title": "Frameworks & Development",
+      "description": "Flutter, Android Development",
       "icon": FontAwesomeIcons.mobileScreen,
     },
     const {
-      "title": "Android",
-      "description": "Experience building and deploying Android apps with platform-specific integrations.",
-      "icon": FontAwesomeIcons.android,
-    },
-    const {
-      "title": "iOS",
-      "description": "Expertise in developing iOS apps using Flutter with smooth performance and native feel.",
-      "icon": FontAwesomeIcons.apple,
-    },
-    const {
-      "title": "Website",
-      "description": "Developed responsive, interactive websites using Flutter Web and modern web practices.",
-      "icon": FontAwesomeIcons.globe,
-    },
-    const {
-      "title": "Firebase Suite",
-      "description": "Realtime DB, Auth, Firestore, Crashlytics, FCM for complete app backend.",
-      "icon": FontAwesomeIcons.fire,
-    },
-    {
       "title": "State Management",
-      "description": "Riverpod, Provider – Clean architecture with MVVM patterns.",
+      "description": "Riverpod, Provider, GetX",
       "icon": FontAwesomeIcons.diagramProject,
     },
     const {
-      "title": "API Integration",
-      "description": "Dio, http, REST APIs – robust backend communication.",
+      "title": "Architecture",
+      "description": "MVVM, Clean Architecture",
+      "icon": FontAwesomeIcons.layerGroup,
+    },
+    const {
+      "title": "Networking & APIs",
+      "description": "RESTful APIs, Dio, HTTP",
       "icon": FontAwesomeIcons.networkWired,
     },
     const {
       "title": "Database & Storage",
-      "description": "Hive, SharedPreferences, SQLite for local persistence.",
+      "description": "SharedPreferences, Hive, SQLite",
       "icon": FontAwesomeIcons.database,
     },
     const {
-      "title": "CI/CD & Deployment",
-      "description": "GitHub Actions, Codemagic for automated deployment pipelines.",
-      "icon": FontAwesomeIcons.codeBranch,
+      "title": "Firebase & Cloud",
+      "description": "Authentication, Firestore, FCM, Crashlytics, Cloud Hosting",
+      "icon": FontAwesomeIcons.fire,
     },
     const {
-      "title": "Payments & POS",
-      "description": "Integrated Razorpay, UPI, Card, Plutus APIs & POS devices.",
+      "title": "Payment Integration",
+      "description": "Razorpay, Paytm, Stripe, Paytrave, HDFC Gateway",
       "icon": FontAwesomeIcons.creditCard,
     },
     const {
-      "title": "UI/UX & Tools",
-      "description": "Pixel-perfect Flutter UIs with Figma, HTML/CSS understanding.",
-      "icon": FontAwesomeIcons.palette,
+      "title": "DevOps & CI/CD",
+      "description": "Git, GitHub Actions, Codemagic",
+      "icon": FontAwesomeIcons.codeBranch,
+    },
+    const {
+      "title": "AI Tools",
+      "description": "Cursor, Antigravity",
+      "icon": FontAwesomeIcons.robot,
+    },
+    const {
+      "title": "App Features",
+      "description": "In-App Purchases, Deep Linking",
+      "icon": FontAwesomeIcons.link,
+    },
+    const {
+      "title": "Performance & Debugging",
+      "description": "Optimization, Crash Analysis, Debugging",
+      "icon": FontAwesomeIcons.gaugeHigh,
     },
   ];
+
 
   @override
   Widget build(BuildContext context) {

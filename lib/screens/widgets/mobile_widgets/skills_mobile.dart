@@ -10,83 +10,91 @@ class MySkillsMobileWidget extends StatelessWidget {
 
   final List<Map<String, dynamic>> skills = [
     {
-      "title": "Flutter & Dart",
-      "description": "3.3+ years building cross-platform mobile apps with scalable architecture.",
+      "title": "Languages",
+      "description": "Dart, Kotlin, Java, HTML",
+      "icon": FontAwesomeIcons.code,
+      "iconColor": const Color(0xFF02569B),
+      "align": "left"
+    },
+    {
+      "title": "Frameworks",
+      "description": "Flutter, Android Development",
       "icon": FontAwesomeIcons.mobileScreen,
-      "iconColor": const Color(0xFF02569B), // Flutter Blue
-      "align": "left"
-    },
-    {
-      "title": "Android",
-      "description": "Experience building and deploying Android apps with platform-specific integrations.",
-      "icon": FontAwesomeIcons.android,
-      "iconColor": const Color(0xFF3DDC84), // Android Green
+      "iconColor": const Color(0xFF3DDC84),
       "align": "right"
-    },
-    {
-      "title": "iOS",
-      "description": "Expertise in developing iOS apps using Flutter with smooth performance and native feel.",
-      "icon": FontAwesomeIcons.apple,
-      "iconColor": Colors.black, // Apple Black
-      "align": "left"
-    },
-    {
-      "title": "Website",
-      "description": "Developed responsive, interactive websites using Flutter Web and modern web practices.",
-      "icon": FontAwesomeIcons.globe,
-      "iconColor": const Color(0xFF4285F4), // Google Blue
-      "align": "right"
-    },
-    {
-      "title": "Firebase Suite",
-      "description": "Realtime DB, Auth, Firestore, Crashlytics, FCM for complete app backend.",
-      "icon": FontAwesomeIcons.fire,
-      "iconColor": const Color(0xFFFFCA28), // Firebase Yellow
-      "align": "left",
     },
     {
       "title": "State Management",
-      "description": "Riverpod, Provider – Clean architecture with MVVM patterns.",
+      "description": "Riverpod, Provider, GetX",
       "icon": FontAwesomeIcons.diagramProject,
-      "iconColor": const Color(0xFF4CAF50), // Green
+      "iconColor": const Color(0xFF4CAF50),
+      "align": "left"
+    },
+    {
+      "title": "Architecture",
+      "description": "MVVM, Clean Architecture",
+      "icon": FontAwesomeIcons.layerGroup,
+      "iconColor": Colors.black,
       "align": "right"
     },
     {
-      "title": "API Integration",
-      "description": "Dio, http, REST APIs – robust backend communication.",
+      "title": "Networking & APIs",
+      "description": "RESTful APIs, Dio, HTTP",
       "icon": FontAwesomeIcons.networkWired,
-      "iconColor": const Color(0xFF01529A), // Navy Blue
+      "iconColor": const Color(0xFF01529A),
       "align": "left"
     },
     {
       "title": "Database & Storage",
-      "description": "Hive, SharedPreferences, SQLite for local persistence.",
+      "description": "SharedPreferences, Hive, SQLite",
       "icon": FontAwesomeIcons.database,
-      "iconColor": const Color(0xFF616161), // Grey
+      "iconColor": const Color(0xFF616161),
       "align": "right"
     },
     {
-      "title": "CI/CD & Deployment",
-      "description": "GitHub Actions, Codemagic for automated deployment pipelines.",
-      "icon": FontAwesomeIcons.codeBranch,
-      "iconColor": const Color(0xFF4078C0), // GitHub Blue
+      "title": "Firebase & Cloud",
+      "description": "Auth, Firestore, FCM, Crashlytics, Cloud Hosting",
+      "icon": FontAwesomeIcons.fire,
+      "iconColor": const Color(0xFFFFCA28),
       "align": "left"
     },
     {
-      "title": "Payments & POS",
-      "description": "Integrated Razorpay, UPI, Card, Plutus APIs & POS devices.",
+      "title": "Payment Integration",
+      "description": "Razorpay, Paytm, Stripe, Paytrave, HDFC Gateway",
       "icon": FontAwesomeIcons.creditCard,
-      "iconColor": const Color(0xFF003087), // Card Blue
+      "iconColor": const Color(0xFF003087),
       "align": "right"
     },
     {
-      "title": "UI/UX & Tools",
-      "description": "Pixel-perfect Flutter UIs with Figma, HTML/CSS understanding.",
-      "icon": FontAwesomeIcons.palette,
-      "iconColor": const Color(0xFF9C27B0), // Purple
+      "title": "DevOps & CI/CD",
+      "description": "Git, GitHub Actions, Codemagic",
+      "icon": FontAwesomeIcons.codeBranch,
+      "iconColor": const Color(0xFF4078C0),
       "align": "left"
+    },
+    {
+      "title": "AI Tools",
+      "description": "Cursor, Antigravity",
+      "icon": FontAwesomeIcons.robot,
+      "iconColor": const Color(0xFF9C27B0),
+      "align": "right"
+    },
+    {
+      "title": "App Features",
+      "description": "In-App Purchases, Deep Linking",
+      "icon": FontAwesomeIcons.link,
+      "iconColor": const Color(0xFF4285F4),
+      "align": "left"
+    },
+    {
+      "title": "Performance",
+      "description": "Debugging, Crash Analysis, Optimization",
+      "icon": FontAwesomeIcons.gaugeHigh,
+      "iconColor": const Color(0xFFFF5722),
+      "align": "right"
     },
   ];
+
 
 
   @override
@@ -95,16 +103,8 @@ class MySkillsMobileWidget extends StatelessWidget {
       builder: (context, constraints) {
         int crossAxisCount = 1;
 
-        if (constraints.maxWidth > 1250) {
-          crossAxisCount = 6;
-        } else if (constraints.maxWidth > 1150) {
-          crossAxisCount = 5;
-        } else if (constraints.maxWidth > 900) {
-          crossAxisCount = 4;
-        }else if (constraints.maxWidth > 700) {
-          crossAxisCount = 3;
-        }else if (constraints.maxWidth > 500) {
-          crossAxisCount = 2;
+        if (constraints.maxWidth > 500) {
+          crossAxisCount = 1;
         }else{
           crossAxisCount = 1;
         }
