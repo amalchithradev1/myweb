@@ -382,6 +382,30 @@ class _MobileLayoutState extends State<MobileLayout> {
 
   final List<Project> projects = [
     Project(
+      title: "TNA",
+      description: "The New American App – Developed a Flutter-based news application delivering in-depth articles, political analysis, and investigative journalism. Built a clean, user-friendly interface with efficient content loading, secure access, and seamless reading experience for staying updated on national and global issues.",
+      videoPath: "assets/videos/tna.mp4",
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.tnanews.ateam&pcampaignid=web_share",
+      appStoreLink: "https://apps.apple.com/in/app/the-new-american-tna/id6748341602",
+      isWeb: false,
+    ),
+    Project(
+      title: "JBS",
+      description: "JBS Mobile App – Developed a Flutter-based application providing access to articles, publications, and an integrated e-commerce store with donation support. Implemented secure user authentication, content management, payment processing, and donation features.",
+      videoPath: "assets/videos/jbs.mp4",
+      playStoreLink: "",
+      appStoreLink: "",
+      isWeb: false,
+    ),
+    Project(
+      title: "WorryFree",
+      description: "WorryFree App – Developed a Flutter-based healthcare mobile application to streamline doctor–patient interactions, including appointment booking, secure messaging, and patient record access. Integrated AI-assisted features for medical insights and ensured seamless real-time communication using Firebase.",
+      videoPath: "assets/videos/worryfree.mp4",
+      playStoreLink: "",
+      appStoreLink: "",
+      isWeb: false,
+    ),
+    Project(
       title: "OLOPO",
       description: "Olopo is a super app incorporating a range of mini apps and services designed to meet different parts of users' lives. Within the app, users have the ability to shop, accumulate loyalty points, and make use of these points across various platforms.",
       videoPath: "assets/videos/olopo-mob.mp4",
