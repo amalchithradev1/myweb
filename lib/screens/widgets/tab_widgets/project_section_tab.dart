@@ -153,7 +153,7 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
               widget.project.title,
               textAlign: TextAlign.center,
               style: GoogleFonts.b612(
-                fontSize: 20,
+                fontSize: 21,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
                 letterSpacing: 2,
@@ -164,7 +164,7 @@ class _ProjectTabTileState extends State<ProjectTabTile> {
               widget.project.description,
               textAlign: TextAlign.center,
               style: GoogleFonts.b612(
-                fontSize: 13,
+                fontSize: 16,
                 color: Colors.black87,
               ),
             ),

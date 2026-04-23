@@ -6,7 +6,6 @@ import 'package:porfolio/constants/colors.dart';
 import 'package:porfolio/constants/styles.dart';
 import 'package:porfolio/screens/widgets/count_container_widget.dart';
 import 'package:porfolio/screens/widgets/header_text_widget.dart';
-import 'package:porfolio/screens/widgets/myservice_widgets.dart';
 import 'package:porfolio/screens/widgets/rotating_image_widget.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -36,6 +35,8 @@ class _DesktopLayoutState extends State<DesktopLayout> {
   final contactKey = GlobalKey();
 
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _projectScrollController = ScrollController();
+
 
 
   void scrollToSection(GlobalKey key) {
@@ -71,6 +72,7 @@ class _DesktopLayoutState extends State<DesktopLayout> {
   void dispose() {
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
+    _projectScrollController.dispose();
     super.dispose();
   }
 
@@ -275,24 +277,102 @@ class _DesktopLayoutState extends State<DesktopLayout> {
                         SizedBox(height: size.height * 0.05),
                         Container(
                           width: double.infinity,
-                          height: 600,
-                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: projects.length,
-                            itemBuilder: (context, index) {
-                              final project = projects[index];
-                              return Row(
-                                children: [
-                                  ProjectTile(
-                                    project: project,
-                                    width: size.width > 800 ? size.width * 0.22 : size.width * 0.85,
-                                    index: index, // Pass index here
+                          height: 690,
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+
+                              /// LEFT ARROW
+                              Positioned(
+                                left: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    _projectScrollController.animateTo(
+                                      _projectScrollController.offset - 600,
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.arrow_back_ios_new,
+                                      color: Color(0XFF01529A),
+                                    ),
                                   ),
-                                  const SizedBox(width: 20),
-                                ],
-                              );
-                            },
+                                ),
+                              ),
+
+                              /// PROJECT LIST
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 70),
+                                child: ListView.builder(
+                                  controller: _projectScrollController,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: projects.length,
+                                  itemBuilder: (context, index) {
+                                    final project = projects[index];
+
+                                    return Row(
+                                      children: [
+                                        ProjectTile(
+                                          project: project,
+                                          width: size.width > 800
+                                              ? size.width * 0.22
+                                              : size.width * 0.85,
+                                          index: index,
+                                        ),
+                                        const SizedBox(width: 20),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              /// RIGHT ARROW
+                              Positioned(
+                                right: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    _projectScrollController.animateTo(
+                                      _projectScrollController.offset + 600,
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 55,
+                                    width: 55,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0XFF01529A),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

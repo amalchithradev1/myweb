@@ -154,7 +154,7 @@ class _ProjectTileState extends State<ProjectTile> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
                 width: 500,
@@ -174,7 +174,7 @@ class _ProjectTileState extends State<ProjectTile> {
               widget.project.title,
               textAlign: TextAlign.center,
               style: GoogleFonts.b612(
-                fontSize: 20,
+                fontSize: 21,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
                 letterSpacing: 2,
@@ -185,7 +185,7 @@ class _ProjectTileState extends State<ProjectTile> {
               widget.project.description,
               textAlign: TextAlign.center,
               style: GoogleFonts.b612(
-                fontSize: 13,
+                fontSize: 16,
                 color: Colors.black87,
               ),
             ),
