@@ -1,14 +1,17 @@
-2026/05/27-16:41:39.572 8a9df9 Reusing MANIFEST /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.XkDqbH/flutter_tools_chrome_device.RfUqrF/Default/shared_proto_db/MANIFEST-000001
-2026/05/27-16:41:39.573 8a9df9 Recovering log #23
-2026/05/27-16:41:39.573 8a9df9 Reusing old log /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.XkDqbH/flutter_tools_chrome_device.RfUqrF/Default/shared_proto_db/000023.log 
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #13
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #7
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #4
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #10
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #16
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #3
-2026/05/27-16:41:39.575 8a9df9 Delete type=2 #14
-2026/05/27-16:41:39.575 8a9df9 Delete type=2 #17
-2026/05/27-16:41:39.575 8a9df9 Delete type=2 #11
-2026/05/27-16:41:39.575 8a9df9 Delete type=2 #8
-2026/05/27-16:41:39.575 8a9df9 Delete type=0 #19
+2026/05/27-18:54:34.944 8ba29e Reusing MANIFEST /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.4r6U3b/flutter_tools_chrome_device.bHZKCL/Default/shared_proto_db/MANIFEST-000001
+2026/05/27-18:54:34.944 8ba29e Recovering log #23
+2026/05/27-18:54:34.945 8ba29e Reusing old log /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.4r6U3b/flutter_tools_chrome_device.bHZKCL/Default/shared_proto_db/000023.log 
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #13
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #7
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #4
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #10
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #16
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #3
+2026/05/27-18:54:34.946 8ba29e Delete type=2 #14
+2026/05/27-18:54:34.946 8ba29e Delete type=2 #17
+2026/05/27-18:54:34.946 8ba29e Delete type=2 #11
+2026/05/27-18:54:34.946 8ba29e Delete type=2 #8
+2026/05/27-18:54:34.946 8ba29e Delete type=0 #19
+2026/05/27-18:54:44.397 8ba2a0 Level-0 table #27: started
+2026/05/27-18:54:44.402 8ba2a0 Level-0 table #27: 125902 bytes OK
+2026/05/27-18:54:44.404 8ba2a0 Delete type=0 #23

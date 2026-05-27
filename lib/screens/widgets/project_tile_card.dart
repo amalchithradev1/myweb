@@ -156,7 +156,7 @@ class _ProjectTileState extends State<ProjectTile> {
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(isWeb ? 6 : 14),
+        borderRadius: BorderRadius.circular(isWeb ? 5 : 10), // Matches inner frame curves exactly!
         child: BackdropFilter(
           filter: ImageFilter.blur(
               sigmaX: 4, sigmaY: 4), // Gorgeous modern glass blur

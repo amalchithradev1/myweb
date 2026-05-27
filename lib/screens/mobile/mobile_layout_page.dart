@@ -407,22 +407,29 @@ class _MobileLayoutState extends State<MobileLayout> {
                                     ),
                                   ),
                                   const SizedBox(height: 16),
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    spacing: 16,
-                                    runSpacing: 16,
-                                    children: portfolioProjects
-                                        .where((p) => !p.isWeb)
-                                        .toList()
-                                        .asMap()
-                                        .entries
-                                        .map((entry) {
-                                      return ProjectMobileTile(
-                                        project: entry.value,
-                                        width: 140, // Perfect compact smartphone mockup width
-                                        index: entry.key,
+                                  Builder(
+                                    builder: (context) {
+                                      // Calculate dynamic tile width to guarantee at least 2 columns fit on all standard phone sizes!
+                                      final double paddingWidth = size.width * 0.10;
+                                      final double tileWidth = ((size.width - paddingWidth - 16) / 2).clamp(115.0, 140.0);
+                                      return Wrap(
+                                        alignment: WrapAlignment.center,
+                                        spacing: 16,
+                                        runSpacing: 16,
+                                        children: portfolioProjects
+                                            .where((p) => !p.isWeb)
+                                            .toList()
+                                            .asMap()
+                                            .entries
+                                            .map((entry) {
+                                          return ProjectMobileTile(
+                                            project: entry.value,
+                                            width: tileWidth,
+                                            index: entry.key,
+                                          );
+                                        }).toList(),
                                       );
-                                    }).toList(),
+                                    },
                                   ),
                                   const SizedBox(height: 36),
 

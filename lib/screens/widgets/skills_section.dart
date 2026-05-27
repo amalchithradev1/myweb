@@ -90,15 +90,15 @@ class MySkillsWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 6;
-        double childAspectRatio = 0.80;
+        double childAspectRatio = 1.25;
 
         // Breakpoints
         if (constraints.maxWidth > 1000) {
           crossAxisCount = 6;
-          childAspectRatio = 0.80; // Perfect tall aspect ratio to fit the description text!
+          childAspectRatio = 1.25; // Compact ratio to prevent extremely tall stretched cards on desktop!
         } else if (constraints.maxWidth > 750) {
           crossAxisCount = 4;
-          childAspectRatio = 0.85;
+          childAspectRatio = 0.95; // Balanced aspect ratio for tablet screens
         } else {
           crossAxisCount = 3; // Show 3 items per row on Mobile & small Tablet!
           childAspectRatio = 0.65; // Much taller ratio to give robust vertical breathing room!

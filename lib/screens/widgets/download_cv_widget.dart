@@ -8,7 +8,7 @@ class DownloadCVButton extends StatelessWidget {
   const DownloadCVButton({super.key});
 
   void _launchCV() async {
-    final Uri url = Uri.parse('assets/Amal-CVA5.pdf');
+    final Uri url = Uri.parse('assets/assets/files/Amal-CVA5.pdf');
 
     // On web, just try to launch it directly without checking
     try {
@@ -41,7 +41,8 @@ class DownloadCVButton extends StatelessWidget {
               style: GoogleFonts.b612(color: Colors.black87),
             ),
             const SizedBox.square(dimension: 12),
-            const FaIcon(FontAwesomeIcons.download, color: Colors.black87, size: 16),
+            const FaIcon(FontAwesomeIcons.download,
+                color: Colors.black87, size: 16),
           ],
         ),
       ),
