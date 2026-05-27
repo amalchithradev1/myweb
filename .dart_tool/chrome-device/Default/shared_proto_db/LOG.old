@@ -1,17 +1,16 @@
-2026/05/27-18:54:34.944 8ba29e Reusing MANIFEST /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.4r6U3b/flutter_tools_chrome_device.bHZKCL/Default/shared_proto_db/MANIFEST-000001
-2026/05/27-18:54:34.944 8ba29e Recovering log #23
-2026/05/27-18:54:34.945 8ba29e Reusing old log /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.4r6U3b/flutter_tools_chrome_device.bHZKCL/Default/shared_proto_db/000023.log 
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #13
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #7
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #4
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #10
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #16
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #3
-2026/05/27-18:54:34.946 8ba29e Delete type=2 #14
-2026/05/27-18:54:34.946 8ba29e Delete type=2 #17
-2026/05/27-18:54:34.946 8ba29e Delete type=2 #11
-2026/05/27-18:54:34.946 8ba29e Delete type=2 #8
-2026/05/27-18:54:34.946 8ba29e Delete type=0 #19
-2026/05/27-18:54:44.397 8ba2a0 Level-0 table #27: started
-2026/05/27-18:54:44.402 8ba2a0 Level-0 table #27: 125902 bytes OK
-2026/05/27-18:54:44.404 8ba2a0 Delete type=0 #23
+2026/05/27-21:08:28.104 8e560e Reusing MANIFEST /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.D9K1Qu/flutter_tools_chrome_device.sXbkKT/Default/shared_proto_db/MANIFEST-000001
+2026/05/27-21:08:28.104 8e560e Recovering log #29
+2026/05/27-21:08:28.104 8e560e Reusing old log /private/var/folders/gh/5pb1pxkj4y9gh3tmj60gk59w0000gn/T/flutter_tools.D9K1Qu/flutter_tools_chrome_device.sXbkKT/Default/shared_proto_db/000029.log 
+2026/05/27-21:08:28.105 8e560e Delete type=0 #13
+2026/05/27-21:08:28.105 8e560e Delete type=0 #7
+2026/05/27-21:08:28.105 8e560e Delete type=0 #4
+2026/05/27-21:08:28.106 8e560e Delete type=0 #10
+2026/05/27-21:08:28.106 8e560e Delete type=0 #16
+2026/05/27-21:08:28.106 8e560e Delete type=0 #3
+2026/05/27-21:08:28.106 8e560e Delete type=2 #14
+2026/05/27-21:08:28.106 8e560e Delete type=2 #17
+2026/05/27-21:08:28.106 8e560e Delete type=2 #11
+2026/05/27-21:08:28.106 8e560e Delete type=2 #8
+2026/05/27-21:08:28.106 8e560e Delete type=0 #26
+2026/05/27-21:08:28.106 8e560e Delete type=0 #19
+2026/05/27-21:08:28.106 8e560e Delete type=0 #23
