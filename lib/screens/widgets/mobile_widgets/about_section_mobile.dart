@@ -39,20 +39,24 @@ class _AboutSectionMobileState extends State<AboutSectionMobile> {
       });
     });
 
+    final double imageSize = MediaQuery.of(context).size.width > 600 ? 220.0 : 180.0;
+
     return Container(
       width: double.infinity,
-      // color: Colors.white,
+      // color: Colors.black87,
       padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02, top: 50, bottom: 50),
       child: Column(
         children: [
-          // Container(
-          //   height: 100,
-          //   width: MediaQuery.of(context).size.width * 0.2,
-          //   child: Opacity(
-          //     opacity: 0.6,
-          //     child: Image.asset("assets/images/me.png", fit: BoxFit.cover),
-          //   ),
-          // ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30), // Slightly larger radius for beautiful curves
+            child: Image.asset(
+              "assets/images/me1.jpeg",
+              height: imageSize,
+              width: imageSize,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 28),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +80,7 @@ class _AboutSectionMobileState extends State<AboutSectionMobile> {
                       child: Text(
                         lines[index],
                         style: GoogleFonts.b612(
-                            color: Colors.black,
+                            color: Colors.black87,
                             fontSize: MediaQuery.of(context).size.width * 0.03,
                             letterSpacing: 3
                         ),

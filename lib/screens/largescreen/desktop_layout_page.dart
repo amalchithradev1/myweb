@@ -9,6 +9,9 @@ import 'package:porfolio/screens/widgets/header_text_widget.dart';
 import 'package:porfolio/screens/widgets/rotating_image_widget.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'dart:ui';
+import 'package:porfolio/data/portfolio_data.dart';
 
 import '../widgets/animated_about_section.dart';
 import '../widgets/contact_section.dart';
@@ -25,7 +28,6 @@ class DesktopLayout extends StatefulWidget {
 
 class _DesktopLayoutState extends State<DesktopLayout> {
   bool isImageVisible = false;
-  bool isScrolledPastHome = false;
 
   final homeKey = GlobalKey();
   final aboutKey = GlobalKey();
@@ -37,29 +39,12 @@ class _DesktopLayoutState extends State<DesktopLayout> {
   final ScrollController _scrollController = ScrollController();
   final ScrollController _projectScrollController = ScrollController();
 
-
-
   void scrollToSection(GlobalKey key) {
     Scrollable.ensureVisible(
       key.currentContext!,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
-  }
-
-  void _onScroll() {
-    final homeContext = homeKey.currentContext;
-    if (homeContext != null) {
-      final RenderBox renderBox = homeContext.findRenderObject() as RenderBox;
-      final position = renderBox.localToGlobal(Offset.zero).dy;
-
-      // If top of home section is above app bar (i.e. scrolled past)
-      if (position < 0 && !isScrolledPastHome) {
-        setState(() => isScrolledPastHome = true);
-      } else if (position >= 0 && isScrolledPastHome) {
-        setState(() => isScrolledPastHome = false);
-      }
-    }
   }
 
   @override
@@ -76,429 +61,457 @@ class _DesktopLayoutState extends State<DesktopLayout> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: 30,
-        backgroundColor: isScrolledPastHome ? Color(0XFF01529A) : Color(0XFF01529A),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => scrollToSection(homeKey),
-              child: Text("Home", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
-            const SizedBox(width: 30,),
-            TextButton(
-              onPressed: () => scrollToSection(aboutKey),
-              child: Text("About", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
-            const SizedBox(width: 30,),
-            TextButton(
-              onPressed: () => scrollToSection(skillsKey),
-              child: Text("Skills", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
-            // const SizedBox(width: 30,),
-            // TextButton(
-            //   onPressed: () => scrollToSection(services),
-            //   child: Text("Services", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            // ),
-            const SizedBox(width: 30,),
-            TextButton(
-              onPressed: () => scrollToSection(projectsKey),
-              child: Text("Projects", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
-            const SizedBox(width: 30,),
-            TextButton(
-              onPressed: () => scrollToSection(contactKey),
-              child: Text("Contact", style: GoogleFonts.b612(color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12)),
-            ),
-          ],
-        ),
-      ),
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (_) {
-          _onScroll();
-          return true;
-        },
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: Styles.gradientDecoration,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(0.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    const AnimatedParticleBackground(),
-                    Container(
-                      key: homeKey,
-                      width: double.infinity,
-                      padding: EdgeInsets.only(top: size.height * 0.02  , left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.04),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: size.height * 0.1),
-                              HeaderTextWidget(size: size),
-                              const SizedBox(height: 20),
-                              Social_large(size: size),
-                            ],
-                          ),
-                          VisibilityDetector(
-                            key: const Key('rotating-image'),
-                            onVisibilityChanged: (info) {
-                              final visiblePercentage = info.visibleFraction * 100;
-                              setState(() => isImageVisible = visiblePercentage > 50);
-                            },
-                            child: RotatingImageContainer(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CountWidget(text1: "3.9", text2: "Years of", text3: "Experience",size: size,),
-                      CountWidget(text1: "25+", text2: "Projects", text3: "Completed",size: size,),
-                      CountWidget(text1: "50+", text2: "Happy", text3: "Customers",size: size,),
-                      CountWidget(text1: "15k", text2: "Awesome", text3: "Reviews",size: size,),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 50),
-                Container(key: aboutKey,
-                    color: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                    child: AnimatedAboutScrollSection()),
-                Container(
-                  key: skillsKey,
-                  color: Colors.white,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: size.width * 0.01,horizontal: size.width * 0.05),
-                  child: Column(
-                    children: [
-                      GradientText(
-                        "Expertise In",
-                        colors: [
-                          Color(0XFF01529A),
-                          Color(0XFF45D1FC),
-                        ],
-                        style: GoogleFonts.b612(
-                            fontSize: size.width * 0.030,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: size.height * 0.02),
-                      Text(
-                        'Skilled in crafting high-performance Flutter apps with modern UI, API integration, and scalable architecture. Specialized in payment systems, Firebase backend, CI/CD, and state management using Riverpod and MVVM principles.',
-                        style: GoogleFonts.b612(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                            letterSpacing: 1,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: size.height * 0.05),
-                      MySkillsWidget(size: size)
-                    ],
-                  ),
-                ),
-                // Container(
-                //   key: services,
-                //   // color: AppColors.ebony,
-                //   color: Colors.transparent,
-                //   padding: EdgeInsets.symmetric(vertical: size.width * 0.05, horizontal: size.width * 0.05),
-                //   child: Stack(
-                //     children: [
-                //       const AnimatedParticleBackground(),
-                //       Column(
-                //         children: [
-                //           GradientText(
-                //             "My Quality Services",
-                //             colors: [
-                //               Color(0XFF01529A),
-                //               Color(0XFF45D1FC),
-                //             ],
-                //             style: GoogleFonts.b612(
-                //                 fontSize: size.width * 0.030,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           SizedBox(height: size.height * 0.02),
-                //           Text(
-                //             'Services crafted from real-world experience in mobile apps, payment integration, Firebase, APIs, and CI/CD.',
-                //             style: GoogleFonts.b612(
-                //                 fontSize: 16,
-                //                 fontWeight: FontWeight.w400,
-                //                 color: Colors.black),
-                //           ),
-                //           SizedBox(height: size.height * 0.05),
-                //           MyServicesWidget(size: size),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Container(
-                  color: Colors.white,
-                  // color: Colors.transparent,
-                  key: projectsKey,
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: size.width * 0.05),
-                  child: Container(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GradientText(
-                          "Featured Projects",
-                          colors: [
-                            Color(0XFF01529A),
-                            Color(0XFF45D1FC),
-                          ],
-                          style: GoogleFonts.b612(
-                            fontSize: size.width * 0.030,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.05),
-                        Container(
-                          width: double.infinity,
-                          height: 690,
-                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
+  String activeSection = "Home";
 
-                              /// LEFT ARROW
-                              Positioned(
-                                left: 0,
-                                child: InkWell(
-                                  onTap: () {
-                                    _projectScrollController.animateTo(
-                                      _projectScrollController.offset - 600,
-                                      duration: const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 55,
-                                    width: 55,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 10,
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_new,
-                                      color: Color(0XFF01529A),
-                                    ),
-                                  ),
-                                ),
-                              ),
+  void _onScroll() {
+    final homeContext = homeKey.currentContext;
+    final aboutContext = aboutKey.currentContext;
+    final skillsContext = skillsKey.currentContext;
+    final projectsContext = projectsKey.currentContext;
+    final contactContext = contactKey.currentContext;
 
-                              /// PROJECT LIST
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 70),
-                                child: ListView.builder(
-                                  controller: _projectScrollController,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: projects.length,
-                                  itemBuilder: (context, index) {
-                                    final project = projects[index];
+    double? homeY = homeContext != null
+        ? (homeContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? aboutY = aboutContext != null
+        ? (aboutContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? skillsY = skillsContext != null
+        ? (skillsContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? projectsY = projectsContext != null
+        ? (projectsContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? contactY = contactContext != null
+        ? (contactContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
 
-                                    return Row(
-                                      children: [
-                                        ProjectTile(
-                                          project: project,
-                                          width: size.width > 800
-                                              ? size.width * 0.22
-                                              : size.width * 0.85,
-                                          index: index,
-                                        ),
-                                        const SizedBox(width: 20),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ),
+    double threshold = 220.0;
 
-                              /// RIGHT ARROW
-                              Positioned(
-                                right: 0,
-                                child: InkWell(
-                                  onTap: () {
-                                    _projectScrollController.animateTo(
-                                      _projectScrollController.offset + 600,
-                                      duration: const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 55,
-                                    width: 55,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 10,
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Color(0XFF01529A),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  key: contactKey,
-                  color: AppColors.ebony,
-                  child: const Center(
-                    child: ContactSection()
-                  ),
-                )
-              ],
-            ),
+    String newActive = "Home";
+    if (contactY != null && contactY < threshold) {
+      newActive = "Contact";
+    } else if (projectsY != null && projectsY < threshold) {
+      newActive = "Projects";
+    } else if (skillsY != null && skillsY < threshold) {
+      newActive = "Skills";
+    } else if (aboutY != null && aboutY < threshold) {
+      newActive = "About";
+    } else {
+      newActive = "Home";
+    }
+
+    if (newActive != activeSection) {
+      setState(() {
+        activeSection = newActive;
+      });
+    }
+  }
+
+  Widget _buildMenuButton(String label, GlobalKey sectionKey) {
+    final bool isActive = activeSection == label;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: InkWell(
+        onTap: () => scrollToSection(sectionKey),
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 200),
+          style: GoogleFonts.b612(
+            color: isActive ? Colors.black : Colors.black38,
+            fontSize: 16,
+            fontWeight: isActive ? FontWeight.bold : FontWeight.w400,
+            letterSpacing: 1,
+          ),
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                margin: const EdgeInsets.only(right: 12),
+                width: isActive ? 24 : 0,
+                height: 2,
+                color: Colors.black,
+              ),
+              Text(label),
+            ],
           ),
         ),
       ),
     );
   }
 
-  final List<Project> projects = [
-    Project(
-      title: "TNA",
-      description: "The New American App – Developed a Flutter-based news application delivering in-depth articles, political analysis, and investigative journalism. Built a clean, user-friendly interface with efficient content loading, secure access, and seamless reading experience for staying updated on national and global issues.",
-      videoPath: "assets/videos/tna.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.tnanews.ateam&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/the-new-american-tna/id6748341602",
-      isWeb: false,
-    ),
-    Project(
-      title: "JBS",
-      description: "JBS Mobile App – Developed a Flutter-based application providing access to articles, publications, and an integrated e-commerce store with donation support. Implemented secure user authentication, content management, payment processing, and donation features.",
-      videoPath: "assets/videos/jbs.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-      isWeb: false,
-    ),
-    Project(
-      title: "WorryFree",
-      description: "WorryFree App – Developed a Flutter-based healthcare mobile application to streamline doctor–patient interactions, including appointment booking, secure messaging, and patient record access. Integrated AI-assisted features for medical insights and ensured seamless real-time communication using Firebase.",
-      videoPath: "assets/videos/worryfree.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-      isWeb: false,
-    ),
-    Project(
-      title: "OLOPO",
-      description: "Olopo is a super app incorporating a range of mini apps and services designed to meet different parts of users' lives. Within the app, users have the ability to shop, accumulate loyalty points, and make use of these points across various platforms.",
-      videoPath: "assets/videos/olopo-mob.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.wac.olopouser&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/olopo/id6651817861",
-      isWeb: false,
-    ),
-    Project(
-        title: "Ekasys ERP",
-        description: "Ekasys ERP is a Cloud ERP Solution that Aims in Providing an integrated Inventory Management and Accounting Software to small and medium-sized Businesses.",
-        videoPath: "assets/videos/ekasys.mp4",
-        playStoreLink: "",
-        appStoreLink: "",
-        isWeb: true,
-    ),
-    Project(
-      title: "WAW",
-      description: "You can potentially earn money by watching advertisements through certain apps, which reward users for engaging with ads",
-      videoPath: "assets/videos/waw_ad.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-        title: "Medoc HMS",
-        description: "Medoc HMS provides operations management software to manage the day-to-day activities of your hospital, clinic, lab or pharmacy.",
-        videoPath: "assets/videos/medoc.mp4", // Add actual video path later
-        playStoreLink: "",
-        appStoreLink: "",
-        isWeb: true
-    ),
-    Project(
-      title: "Al-aysh",
-      description: "E-commerce platform for customers in Kuwait and Gulf countries.",
-      videoPath: "assets/videos/alaysh.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/al-aysh-supermarket-shopping/id6449591948",
-    ),
-    Project(
-      title: "Fragranzia",
-      description: "Perfume E-commerce App – A mobile shopping app for exploring and purchasing premium perfumes.",
-      videoPath: "assets/videos/fragranzia.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-      title: "Smart - Ecommerce",
-      description: "Provide all its capabilities to serve our valued customers in the local range in Kuwait and Gulf countries, by providing all our products with the best quality and the best prices that suit our customers",
-      videoPath: "assets/videos/alsanafer_ad.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
-      appStoreLink: '',
-    ),
-    Project(
-        title: "OlloBillz",
-        description: "Contributed to revolutionizing the retail industry by developing an in-house marketplace and reward system, streamlining operations, and enhancing customer experiences.",
-        videoPath: "assets/videos/olobillz_ad.mp4",
-        playStoreLink: "",
-        appStoreLink: "",
-        isWeb: true
-    ),
-    Project(
-      title: "SpotFeed",
-      description: "SpotFeed is envisaged as an app that can help crowds/group of people within a particular geo - location to coordinate among each other, all without the need of exchanging phone numbers.",
-      videoPath: "assets/videos/spotfeed.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-      title: "Deepus EC",
-      description: "This application streamlines the process of obtaining an encumbrance certificate in Kerala, allowing users to easily download the document online.",
-      videoPath: "assets/videos/deepus_ec_ad.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-        title: "Devasthanam",
-        description: "Official Mobile App Of Peringottukara Devasthanam Sree Vishnumaya Swami Temple, ultimate destination for spiritual experiences and divine connection.",
-        videoPath: "assets/videos/devasthanam-ad.mp4",
-        playStoreLink: "https://play.google.com/store/apps/details?id=com.devasthanam.app&pcampaignid=web_share",
-        appStoreLink: "",
-    ),
-  ];
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
+    // Adjust size dimensions for right side content rendering area
+    Size size = Size(screenSize.width - 280, screenSize.height);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Row(
+        children: [
+          // Fixed Left Sidebar Panel (Minimalist Clean Design inspired by elen)
+          Container(
+            width: 280,
+            height: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                right: BorderSide(
+                  color: Colors.black.withOpacity(0.06),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Logo Section
+                Text(
+                  "amal.",
+                  style: GoogleFonts.outfit(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                const SizedBox(height: 80),
+
+                // Vertical Navigation Menus
+                _buildMenuButton("Home", homeKey),
+                _buildMenuButton("About", aboutKey),
+                _buildMenuButton("Skills", skillsKey),
+                _buildMenuButton("Projects", projectsKey),
+                _buildMenuButton("Contact", contactKey),
+
+                const Spacer(),
+
+                // Footer Content & Copyright
+                Text(
+                  "Copyright ©2026 All rights reserved.",
+                  style: GoogleFonts.b612(
+                    color: Colors.black38,
+                    fontSize: 11,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Icon(Icons.code, size: 14, color: Colors.black38),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Made with Flutter",
+                      style: GoogleFonts.b612(
+                        color: Colors.black38,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Expanded Content Area (Vertically Scrollable)
+          Expanded(
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (_) {
+                _onScroll();
+                return true;
+              },
+              child: Container(
+                decoration: Styles.gradientDecoration,
+                height: double.infinity,
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.all(0.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          const AnimatedParticleBackground(),
+                          Container(
+                            key: homeKey,
+                            width: double.infinity,
+                            padding: EdgeInsets.only(
+                                top: size.height * 0.02,
+                                left: size.width * 0.05,
+                                right: size.width * 0.05,
+                                bottom: size.height * 0.04),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: size.height * 0.1),
+                                    HeaderTextWidget(size: size)
+                                        .animate()
+                                        .fade(duration: 600.ms)
+                                        .slideX(begin: -0.1, end: 0),
+                                    const SizedBox(height: 20),
+                                    Social_large(size: size)
+                                        .animate()
+                                        .fade(duration: 800.ms, delay: 200.ms)
+                                        .slideY(begin: 0.2, end: 0),
+                                  ],
+                                ),
+                                VisibilityDetector(
+                                  key: const Key('rotating-image'),
+                                  onVisibilityChanged: (info) {
+                                    final visiblePercentage =
+                                        info.visibleFraction * 100;
+                                    setState(() => isImageVisible =
+                                        visiblePercentage > 50);
+                                  },
+                                  child: RotatingImageContainer(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CountWidget(
+                              text1: "3.9",
+                              text2: "Years of",
+                              text3: "Experience",
+                              size: size,
+                            ),
+                            CountWidget(
+                              text1: "25+",
+                              text2: "Projects",
+                              text3: "Completed",
+                              size: size,
+                            ),
+                            CountWidget(
+                              text1: "50+",
+                              text2: "Happy",
+                              text3: "Customers",
+                              size: size,
+                            ),
+                            CountWidget(
+                              text1: "15k",
+                              text2: "Awesome",
+                              text3: "Reviews",
+                              size: size,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 50),
+                      Container(
+                          key: aboutKey,
+                          color: Colors.transparent,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.05),
+                          child: AnimatedAboutScrollSection()),
+                      Container(
+                        key: skillsKey,
+                        color: Colors.transparent,
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                            vertical: size.width * 0.01,
+                            horizontal: size.width * 0.05),
+                        child: Column(
+                          children: [
+                            GradientText(
+                              "Expertise In",
+                              colors: const [
+                                Color(0xFF000000), // Pure Black
+                                Color(0xFF7F7F7F), // Silver Platinum
+                              ],
+                              style: GoogleFonts.b612(
+                                  fontSize: size.width * 0.030,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: size.height * 0.02),
+                            Text(
+                              'Skilled in crafting high-performance Flutter apps with modern UI, API integration, and scalable architecture. Specialized in payment systems, Firebase backend, CI/CD, and state management using Riverpod and MVVM principles.',
+                              style: GoogleFonts.b612(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black87,
+                                letterSpacing: 1,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: size.height * 0.05),
+                            MySkillsWidget(size: size)
+                          ],
+                        ),
+                      ),
+                      // Container(
+                      //   key: services,
+                      //   // color: AppColors.ebony,
+                      //   color: Colors.transparent,
+                      //   padding: EdgeInsets.symmetric(vertical: size.width * 0.05, horizontal: size.width * 0.05),
+                      //   child: Stack(
+                      //     children: [
+                      //       const AnimatedParticleBackground(),
+                      //       Column(
+                      //         children: [
+                      //           GradientText(
+                      //             "My Quality Services",
+                      //             colors: [
+                      //               Color(0XFF01529A),
+                      //               Color(0XFF45D1FC),
+                      //             ],
+                      //             style: GoogleFonts.b612(
+                      //                 fontSize: size.width * 0.030,
+                      //                 fontWeight: FontWeight.bold),
+                      //           ),
+                      //           SizedBox(height: size.height * 0.02),
+                      //           Text(
+                      //             'Services crafted from real-world experience in mobile apps, payment integration, Firebase, APIs, and CI/CD.',
+                      //             style: GoogleFonts.b612(
+                      //                 fontSize: 16,
+                      //                 fontWeight: FontWeight.w400,
+                      //                 color: Colors.black),
+                      //           ),
+                      //           SizedBox(height: size.height * 0.05),
+                      //           MyServicesWidget(size: size),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Container(
+                        color: Colors.transparent,
+                        key: projectsKey,
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(vertical: size.width * 0.03),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GradientText(
+                              "Featured Projects",
+                              colors: const [
+                                Color(0xFF000000), // Pure Black
+                                Color(0xFF7F7F7F), // Silver Platinum
+                              ],
+                              style: GoogleFonts.b612(
+                                fontSize:
+                                    (size.width * 0.030).clamp(24.0, 38.0),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+
+                            // Section 1: Mobile Apps Row
+                            Text(
+                              "MOBILE APPLICATIONS",
+                              style: GoogleFonts.outfit(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87.withOpacity(0.75),
+                                letterSpacing: 1.8,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.05),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                runSpacing: 24,
+                                children: portfolioProjects
+                                    .where((p) => !p.isWeb)
+                                    .toList()
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  final int index = entry.key;
+                                  final project = entry.value;
+                                  return ProjectTile(
+                                    project: project,
+                                    width:
+                                        145, // Compact mobile mockup width aligning with page padding
+                                    index: index,
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            const SizedBox(height: 50),
+
+                            // Section 2: Web Projects Row
+                            Text(
+                              "WEB & CLOUD PLATFORMS",
+                              style: GoogleFonts.outfit(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87.withOpacity(0.75),
+                                letterSpacing: 1.8,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.05),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                runSpacing: 24,
+                                children: portfolioProjects
+                                    .where((p) => p.isWeb)
+                                    .toList()
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  final int index = entry.key;
+                                  final project = entry.value;
+                                  return ProjectTile(
+                                    project: project,
+                                    width:
+                                        370, // Compact web mockup width aligning with page padding
+                                    index: index,
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        key: contactKey,
+                        color: AppColors.ebony,
+                        child: const Center(child: ContactSection()),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -23,11 +23,9 @@ class CountWidget extends StatelessWidget {
 
         GradientText(
           "${text1}",
-          colors: [
-            Color(0XFF01529A),
-            Color(0XFF45D1FC),
-            // AppColors.studio,
-            // AppColors.paleSlate,
+          colors: const [
+            Color(0xFF000000), // Pure Black
+            Color(0xFF7F7F7F), // Silver Platinum
           ],
           style: GoogleFonts.b612(
               fontSize: size.width * 0.040,

@@ -79,7 +79,7 @@ class _MyServicesMobileWidgetState extends State<MyServicesMobileWidget> {
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: const Color(0XFF01529A).withOpacity(0.3),
+                    color: Colors.black12,
                     width: 0.5
                   ),
                   color: Colors.transparent,
@@ -91,7 +91,7 @@ class _MyServicesMobileWidgetState extends State<MyServicesMobileWidget> {
                   children: [
                     const FaIcon(
                       FontAwesomeIcons.arrowTrendUp,
-                      color: Color(0XFF01529A),
+                      color: Colors.black87,
                     ),
                     const SizedBox(width: 16),
                     SizedBox(

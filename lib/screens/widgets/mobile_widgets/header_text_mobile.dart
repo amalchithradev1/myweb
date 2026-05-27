@@ -28,7 +28,7 @@ class HeaderTextMobileWidget extends StatelessWidget {
                 sSize: size,
                 text: "amalchithradev",
                 // color: AppColors.paleSlate,
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black87,
                 size: 15,
                 fw: FontWeight.bold,
                 alignment: TextAlign.center,
@@ -46,8 +46,7 @@ class HeaderTextMobileWidget extends StatelessWidget {
               text:
               "I break down complex user experinece problems to create integritiy focussed solutions that connect billions of people",
               size: 10,
-              // color:AppColors.paleSlate,
-              color: AppColors.ebony,
+              color: Colors.black87,
               fw: FontWeight.normal),
         ],
       ),
@@ -81,11 +80,9 @@ class GradientTextWidget extends StatelessWidget {
     return GradientText(
       textAlign: size.width < 600 && alignment != null ? alignment : null,
       "${text1}\n${text2??""}",
-      colors: [
-        Color(0XFF01529A),
-        Color(0XFF45D1FC),
-        // AppColors.studio,
-        // AppColors.paleSlate,
+      colors: const [
+        Color(0xFF000000), // Pure Black
+        Color(0xFF7F7F7F), // Silver Platinum
       ],
       style: GoogleFonts.b612(
           fontSize: size.width * 0.070,

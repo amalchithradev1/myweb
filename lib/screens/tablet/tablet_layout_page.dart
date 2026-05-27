@@ -16,6 +16,9 @@ import '../widgets/mobile_widgets/particle_animation_service_section.dart';
 import '../widgets/project_tile_card.dart';
 import '../widgets/tab_widgets/project_section_tab.dart';
 import '../widgets/tab_widgets/skills_tab_widget.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'dart:ui';
+import 'package:porfolio/data/portfolio_data.dart';
 
 class TabletLayout extends StatefulWidget {
   const TabletLayout({super.key});
@@ -27,12 +30,12 @@ class TabletLayout extends StatefulWidget {
 class _TabletLayoutState extends State<TabletLayout> {
   bool isImageVisible = false;
   bool isScrolledPastHome = false;
-
+  bool isSidebarExpanded = false;
+  String activeSection = "Home";
 
   final homeKey = GlobalKey();
   final aboutKey = GlobalKey();
   final skillsKey = GlobalKey();
-  // final services = GlobalKey();
   final projectsKey = GlobalKey();
   final contactKey = GlobalKey();
 
@@ -48,14 +51,63 @@ class _TabletLayoutState extends State<TabletLayout> {
 
   void _onScroll() {
     final homeContext = homeKey.currentContext;
-    if (homeContext != null) {
-      final RenderBox renderBox = homeContext.findRenderObject() as RenderBox;
-      final position = renderBox.localToGlobal(Offset.zero).dy;
+    final aboutContext = aboutKey.currentContext;
+    final skillsContext = skillsKey.currentContext;
+    final projectsContext = projectsKey.currentContext;
+    final contactContext = contactKey.currentContext;
 
-      // If top of home section is above app bar (i.e. scrolled past)
-      if (position < 0 && !isScrolledPastHome) {
+    double? homeY = homeContext != null
+        ? (homeContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? aboutY = aboutContext != null
+        ? (aboutContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? skillsY = skillsContext != null
+        ? (skillsContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? projectsY = projectsContext != null
+        ? (projectsContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+    double? contactY = contactContext != null
+        ? (contactContext.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dy
+        : null;
+
+    double threshold = 220.0;
+
+    String newSection = activeSection;
+    if (homeY != null && homeY.abs() < threshold) {
+      newSection = "Home";
+    } else if (aboutY != null && aboutY < threshold && aboutY > -threshold) {
+      newSection = "About";
+    } else if (skillsY != null && skillsY < threshold && skillsY > -threshold) {
+      newSection = "Skills";
+    } else if (projectsY != null && projectsY < threshold && projectsY > -threshold) {
+      newSection = "Projects";
+    } else if (contactY != null && contactY < threshold && contactY > -threshold) {
+      newSection = "Contact";
+    }
+
+    if (newSection != activeSection) {
+      setState(() {
+        activeSection = newSection;
+      });
+    }
+
+    // Update scrolled past state for backward compatibility
+    if (homeY != null) {
+      if (homeY < 0 && !isScrolledPastHome) {
         setState(() => isScrolledPastHome = true);
-      } else if (position >= 0 && isScrolledPastHome) {
+      } else if (homeY >= 0 && isScrolledPastHome) {
         setState(() => isScrolledPastHome = false);
       }
     }
@@ -74,419 +126,405 @@ class _TabletLayoutState extends State<TabletLayout> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          toolbarHeight: 0.0,
-          backgroundColor: Colors.white,
-        ),
-        body: Column(
+  Widget _buildSidebar(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      width: isSidebarExpanded ? 180 : 65,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          if (isSidebarExpanded)
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 15,
+              offset: const Offset(4, 0),
+            ),
+        ],
+      ),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.only(left: size.height * 0.02,top: size.height * 0.03, right: size.height * 0.02, bottom: 20),
+            // Top Header / Toggle Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: isSidebarExpanded ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: () => scrollToSection(homeKey),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  if (isSidebarExpanded)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        "amal.",
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
                     ),
-                    child: Text("Home", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
-                  ),
-                  SizedBox(width: 15),
-                  TextButton(
-                    onPressed: () => scrollToSection(aboutKey),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  IconButton(
+                    icon: Icon(
+                      isSidebarExpanded ? Icons.menu_open : Icons.menu,
+                      color: Colors.black87,
+                      size: 22,
                     ),
-                    child: Text("About", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
-                  ),
-                  SizedBox(width: 15),
-                  TextButton(
-                    onPressed: () => scrollToSection(skillsKey),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text("Skills", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
-                  ),
-                  // SizedBox(width: 15),
-                  // TextButton(
-                  //   onPressed: () => scrollToSection(services),
-                  //   style: TextButton.styleFrom(
-                  //     padding: EdgeInsets.zero,
-                  //     minimumSize: Size.zero,
-                  //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  //   ),
-                  //   child: Text("Services", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
-                  // ),
-                  const SizedBox(width: 15),
-                  TextButton(
-                    onPressed: () => scrollToSection(projectsKey),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text("Projects", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
-                  ),
-                  const SizedBox(width: 15),
-                  TextButton(
-                    onPressed: () => scrollToSection(contactKey),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text("Contact", style: GoogleFonts.b612(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12)),
+                    onPressed: () {
+                      setState(() {
+                        isSidebarExpanded = !isSidebarExpanded;
+                      });
+                    },
                   ),
                 ],
               ),
             ),
-            Expanded(
-              child: NotificationListener<ScrollNotification>(
-                onNotification: (_) {
-                  _onScroll();
-                  return true;
-                },
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: Styles.gradientDecoration,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          key: homeKey,
-                          padding: EdgeInsets.only(top: size.height * 0.02  , left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.04),
-                          child: Stack(
-                            children: [
-                              AnimatedParticleMobileHomeBackground(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  HeaderTextMobileWidget(
-                                    size: size,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Social_Tab(size: size)
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.width * 0.09,
-                        ),
-                        Container(
-                          width: size.width,
-                          padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CountWidget(size: size,text1: "3.9",text2: "Years of",text3: "Experience",),
-                              const SizedBox(height: 20,),
-                              Divider(
-                                color: AppColors.paleSlate,
-                                indent: size.width*0.1,
-                                endIndent: size.width*0.1,
-
-                              ),
-
-                              const SizedBox(height: 20,),
-                              CountWidget(size: size,text1: "25+",text2: "Projects",text3: "Completed",),
-                              const SizedBox(height: 20,),
-                              Divider(
-                                color: AppColors.paleSlate,
-                                indent: size.width*0.1,
-                                endIndent: size.width*0.1,
-
-                              ),
-
-                              const SizedBox(height: 20,),
-                              CountWidget(size: size,text1: "50K",text2: "Happy",text3: "Customers",),
-                              const SizedBox(height: 20,),
-                              Divider(
-                                color: AppColors.paleSlate,
-                                indent: size.width*0.1,
-                                endIndent: size.width*0.1,
-
-                              ),
-
-                              const SizedBox(height: 20,),
-                              CountWidget(size: size,text1: "15k",text2: "Awesome",text3: "Reviews",),
-
-                            ],
-                          ),
-                        ),
-                        Container(
-                            key: aboutKey,
-                            child: AboutSectionMobile()),
-                        Container(
-                          key: skillsKey,
-                          color: Colors.white,
-                          width: double.infinity,
-                          padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
-                          child: Column(
-                            children: [
-                              GradientText(
-                                "Expertise In",
-                                colors: [
-                                  Color(0XFF01529A),
-                                  Color(0XFF45D1FC),
-                                ],
-                                style: GoogleFonts.b612(
-                                    fontSize: size.width * 0.05,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: size.height * 0.02),
-                              Text(
-                                'Skilled in crafting high-performance Flutter apps with modern UI, API integration, and scalable architecture. Specialized in payment systems, Firebase backend, CI/CD, and state management using Riverpod and MVVM principles.',
-                                style: GoogleFonts.b612(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w100,
-                                  color: Colors.black87,
-                                  letterSpacing: 1,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: size.height * 0.05),
-                              MySkillsTabWidget(size: size)
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        // Container(
-                        //   key: services,
-                        //   // color: AppColors.ebony,
-                        //   color: Colors.transparent,
-                        //   padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
-                        //   child: Stack(
-                        //     children: [
-                        //       const AnimatedParticleMobileServiceBackground(),
-                        //       Column(
-                        //         children: [
-                        //           GradientText(
-                        //             "My Quality Services",
-                        //             colors: [
-                        //               Color(0XFF01529A),
-                        //               Color(0XFF45D1FC),
-                        //             ],
-                        //             style: GoogleFonts.b612(
-                        //                 fontSize: size.width * 0.05,
-                        //                 fontWeight: FontWeight.bold),
-                        //           ),
-                        //           SizedBox(height: size.height * 0.02),
-                        //           Text(
-                        //             'Services crafted from real-world experience in mobile apps, payment integration, Firebase, APIs, and CI/CD.',
-                        //             style: GoogleFonts.b612(
-                        //               fontSize: 10,
-                        //               fontWeight: FontWeight.w100,
-                        //               color: Colors.black87,
-                        //               letterSpacing: 1,
-                        //             ),
-                        //           ),
-                        //           SizedBox(height: 20),
-                        //           MyServicesMobileWidget(size: size),
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        Container(
-                          color: Colors.white,
-                          // color: Colors.transparent,
-                          key: projectsKey,
-                          width: double.infinity,
-                          padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
-                          child: Container(
-                            width: double.infinity,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GradientText(
-                                  "Featured Projects",
-                                  colors: [
-                                    Color(0XFF01529A),
-                                    Color(0XFF45D1FC),
-                                  ],
-                                  style: GoogleFonts.b612(
-                                    fontSize: size.width * 0.030,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: size.height * 0.05),
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.zero,
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: projects.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      final project = projects[index];
-                                      return Column(
-                                        children: [
-                                          ProjectTabTile(
-                                            project: project,
-                                            width: size.width > 800 ? size.width * 0.22 : size.width * 0.85,
-                                            index: index, // Pass index here
-                                          ),
-                                          const SizedBox(width: 20),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          key: contactKey,
-                          color: AppColors.ebony,
-                          child: const Center(
-                              child: ContactSection()
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+            const SizedBox(height: 20),
+            // Navigation Items
+            _buildSidebarNavItem("Home", Icons.home_outlined, homeKey),
+            _buildSidebarNavItem("About", Icons.person_outline, aboutKey),
+            _buildSidebarNavItem("Skills", Icons.bolt_outlined, skillsKey),
+            _buildSidebarNavItem("Projects", Icons.folder_outlined, projectsKey),
+            _buildSidebarNavItem("Contact", Icons.mail_outline, contactKey),
           ],
-        )
+        ),
+      ),
     );
   }
 
-  final List<Project> projects = [
-    Project(
-      title: "TNA",
-      description: "The New American App – Developed a Flutter-based news application delivering in-depth articles, political analysis, and investigative journalism. Built a clean, user-friendly interface with efficient content loading, secure access, and seamless reading experience for staying updated on national and global issues.",
-      videoPath: "assets/videos/tna.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.tnanews.ateam&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/the-new-american-tna/id6748341602",
-      isWeb: false,
-    ),
-    Project(
-      title: "JBS",
-      description: "JBS Mobile App – Developed a Flutter-based application providing access to articles, publications, and an integrated e-commerce store with donation support. Implemented secure user authentication, content management, payment processing, and donation features.",
-      videoPath: "assets/videos/jbs.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-      isWeb: false,
-    ),
-    Project(
-      title: "WorryFree",
-      description: "WorryFree App – Developed a Flutter-based healthcare mobile application to streamline doctor–patient interactions, including appointment booking, secure messaging, and patient record access. Integrated AI-assisted features for medical insights and ensured seamless real-time communication using Firebase.",
-      videoPath: "assets/videos/worryfree.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-      isWeb: false,
-    ),
-    Project(
-      title: "OLOPO",
-      description: "Olopo is a super app incorporating a range of mini apps and services designed to meet different parts of users' lives. Within the app, users have the ability to shop, accumulate loyalty points, and make use of these points across various platforms.",
-      videoPath: "assets/videos/olopo-mob.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.wac.olopouser&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/olopo/id6651817861",
-      isWeb: false,
-    ),
-    Project(
-      title: "Ekasys ERP",
-      description: "Ekasys ERP is a Cloud ERP Solution that Aims in Providing an integrated Inventory Management and Accounting Software to small and medium-sized Businesses.",
-      videoPath: "assets/videos/ekasys.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-      isWeb: true,
-    ),
-    Project(
-      title: "WAW",
-      description: "You can potentially earn money by watching advertisements through certain apps, which reward users for engaging with ads",
-      videoPath: "assets/videos/waw_ad.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-        title: "Medoc HMS",
-        description: "Medoc HMS provides operations management software to manage the day-to-day activities of your hospital, clinic, lab or pharmacy.",
-        videoPath: "assets/videos/medoc.mp4", // Add actual video path later
-        playStoreLink: "",
-        appStoreLink: "",
-        isWeb: true
-    ),
-    Project(
-      title: "Al-aysh",
-      description: "E-commerce platform for customers in Kuwait and Gulf countries.",
-      videoPath: "assets/videos/alaysh.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
-      appStoreLink: "https://apps.apple.com/in/app/al-aysh-supermarket-shopping/id6449591948",
-    ),
-    Project(
-      title: "Fragranzia",
-      description: "Perfume E-commerce App – A mobile shopping app for exploring and purchasing premium perfumes.",
-      videoPath: "assets/videos/fragranzia.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-      title: "Smart - Ecommerce",
-      description: "Provide all its capabilities to serve our valued customers in the local range in Kuwait and Gulf countries, by providing all our products with the best quality and the best prices that suit our customers",
-      videoPath: "assets/videos/alsanafer_ad.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.smartsolns.alaysh&pcampaignid=web_share",
-      appStoreLink: '',
-    ),
-    Project(
-        title: "OlloBillz",
-        description: "Contributed to revolutionizing the retail industry by developing an in-house marketplace and reward system, streamlining operations, and enhancing customer experiences.",
-        videoPath: "assets/videos/olobillz_ad.mp4",
-        playStoreLink: "",
-        appStoreLink: "",
-        isWeb: true
-    ),
-    Project(
-      title: "SpotFeed",
-      description: "SpotFeed is envisaged as an app that can help crowds/group of people within a particular geo - location to coordinate among each other, all without the need of exchanging phone numbers.",
-      videoPath: "assets/videos/spotfeed.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-      title: "Deepus EC",
-      description: "This application streamlines the process of obtaining an encumbrance certificate in Kerala, allowing users to easily download the document online.",
-      videoPath: "assets/videos/deepus_ec_ad.mp4",
-      playStoreLink: "",
-      appStoreLink: "",
-    ),
-    Project(
-      title: "Devasthanam",
-      description: "Official Mobile App Of Peringottukara Devasthanam Sree Vishnumaya Swami Temple, ultimate destination for spiritual experiences and divine connection.",
-      videoPath: "assets/videos/devasthanam-ad.mp4",
-      playStoreLink: "https://play.google.com/store/apps/details?id=com.devasthanam.app&pcampaignid=web_share",
-      appStoreLink: "",
-    ),
-  ];
+  Widget _buildSidebarNavItem(String label, IconData icon, GlobalKey sectionKey) {
+    final bool isActive = activeSection == label;
+    
+    return InkWell(
+      onTap: () {
+        scrollToSection(sectionKey);
+        // Auto-collapse sidebar on mobile/tablet screen once selected to clear readability space
+        if (MediaQuery.of(context).size.width < 900) {
+          setState(() {
+            isSidebarExpanded = false;
+          });
+        }
+      },
+      borderRadius: BorderRadius.circular(10),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: isActive ? Colors.black.withOpacity(0.05) : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: isSidebarExpanded ? MainAxisAlignment.start : MainAxisAlignment.center,
+          children: [
+            SizedBox(width: isSidebarExpanded ? 12 : 0),
+            Icon(
+              icon,
+              color: isActive ? Colors.black : Colors.black38,
+              size: 20,
+            ),
+            if (isSidebarExpanded) ...[
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  label,
+                  style: GoogleFonts.outfit(
+                    color: isActive ? Colors.black87 : Colors.black45,
+                    fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    
+    // Content width stays 100% stable at full width minus collapsed width
+    double contentWidth = screenSize.width - 65;
+    Size size = Size(contentWidth, screenSize.height);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Stack(
+        children: [
+          // 1. Full Screen Layout containing Content + fixed spacer for collapsed bar
+          Positioned.fill(
+            child: Row(
+              children: [
+                // Clean structural spacer matching the collapsed menu width
+                const SizedBox(width: 65),
+                // Content area
+                Expanded(
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (_) {
+                      _onScroll();
+                      return true;
+                    },
+                    child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: Styles.gradientDecoration,
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            Container(
+                              key: homeKey,
+                              padding: EdgeInsets.only(top: size.height * 0.02, left: size.width * 0.05, right: size.width * 0.05, bottom: size.height * 0.04),
+                              child: Stack(
+                                children: [
+                                  AnimatedParticleMobileHomeBackground(),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      HeaderTextMobileWidget(
+                                        size: size,
+                                      ).animate().fade(duration: 600.ms).slideY(begin: 0.1, end: 0),
+                                      const SizedBox(height: 20),
+                                      Social_Tab(size: size).animate().fade(duration: 800.ms, delay: 200.ms).slideY(begin: 0.2, end: 0)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: size.width * 0.09),
+                            Container(
+                              width: size.width,
+                              padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CountWidget(size: size, text1: "3.9", text2: "Years of", text3: "Experience"),
+                                  const SizedBox(height: 20),
+                                  Divider(
+                                    color: AppColors.paleSlate,
+                                    indent: size.width * 0.1,
+                                    endIndent: size.width * 0.1,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  CountWidget(size: size, text1: "25+", text2: "Projects", text3: "Completed"),
+                                  const SizedBox(height: 20),
+                                  Divider(
+                                    color: AppColors.paleSlate,
+                                    indent: size.width * 0.1,
+                                    endIndent: size.width * 0.1,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  CountWidget(size: size, text1: "50K", text2: "Happy", text3: "Customers"),
+                                  const SizedBox(height: 20),
+                                  Divider(
+                                    color: AppColors.paleSlate,
+                                    indent: size.width * 0.1,
+                                    endIndent: size.width * 0.1,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  CountWidget(size: size, text1: "15k", text2: "Awesome", text3: "Reviews"),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              key: aboutKey,
+                              child: AboutSectionMobile(),
+                            ),
+                            Container(
+                              key: skillsKey,
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
+                              child: Column(
+                                children: [
+                                  GradientText(
+                                    "Expertise In",
+                                    colors: const [
+                                      Color(0xFF000000),
+                                      Color(0xFF7F7F7F),
+                                    ],
+                                    style: GoogleFonts.b612(
+                                      fontSize: size.width * 0.05,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: size.height * 0.02),
+                                  Text(
+                                    'Skilled in crafting high-performance Flutter apps with modern UI, API integration, and scalable architecture. Specialized in payment systems, Firebase backend, CI/CD, and state management using Riverpod and MVVM principles.',
+                                    style: GoogleFonts.b612(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w100,
+                                      color: Colors.black87,
+                                      letterSpacing: 1,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: size.height * 0.05),
+                                  MySkillsTabWidget(size: size),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              color: Colors.transparent,
+                              key: projectsKey,
+                              width: double.infinity,
+                              padding: EdgeInsets.only(left: size.height * 0.02, right: size.height * 0.02),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GradientText(
+                                    "Featured Projects",
+                                    colors: const [
+                                      Color(0xFF000000),
+                                      Color(0xFF7F7F7F),
+                                    ],
+                                    style: GoogleFonts.b612(
+                                      fontSize: size.width * 0.030,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: size.height * 0.05),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.zero,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        // Category 1: Mobile Apps
+                                        Text(
+                                          "MOBILE APPLICATIONS",
+                                          style: GoogleFonts.outfit(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87.withOpacity(0.7),
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Wrap(
+                                          alignment: WrapAlignment.center,
+                                          spacing: 16,
+                                          runSpacing: 20,
+                                          children: portfolioProjects
+                                              .where((p) => !p.isWeb)
+                                              .toList()
+                                              .asMap()
+                                              .entries
+                                              .map((entry) {
+                                            return ProjectTabTile(
+                                              project: entry.value,
+                                              width: 145, // Identical clean smartphone size as desktop!
+                                              index: entry.key,
+                                            );
+                                          }).toList(),
+                                        ),
+                                        const SizedBox(height: 36),
+
+                                        // Category 2: Web & Cloud
+                                        Text(
+                                          "WEB & CLOUD PLATFORMS",
+                                          style: GoogleFonts.outfit(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87.withOpacity(0.7),
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Wrap(
+                                          alignment: WrapAlignment.center,
+                                          spacing: 20,
+                                          runSpacing: 20,
+                                          children: portfolioProjects
+                                              .where((p) => p.isWeb)
+                                              .toList()
+                                              .asMap()
+                                              .entries
+                                              .map((entry) {
+                                            return ProjectTabTile(
+                                              project: entry.value,
+                                              width: size.width > 700 ? 320 : size.width * 0.85, // Scale nicely on tablet viewports
+                                              index: entry.key,
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              key: contactKey,
+                              color: AppColors.ebony,
+                              child: const Center(
+                                child: ContactSection(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          // 2. High-end blurred translucent drawer backdrop overlay
+          if (isSidebarExpanded)
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isSidebarExpanded = false;
+                  });
+                },
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.25),
+                    ),
+                  ),
+                ),
+              ).animate().fade(duration: 250.ms),
+            ),
+          
+          // 3. Floating Sidebar Panel overlaid on top
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            child: Row(
+              children: [
+                _buildSidebar(context),
+                // Sleek vertical separator line
+                Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: Colors.black.withOpacity(0.06),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class Social_Tab extends StatelessWidget {
@@ -500,18 +538,14 @@ class Social_Tab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width ,
+      width: size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DownloadCVButton(),
-          SizedBox(
-            height: 20,
-          ),
-          SocialWidget(size: size, position: 1,),
-
-
+          const SizedBox(height: 20),
+          SocialWidget(size: size, position: 1),
         ],
       ),
     );

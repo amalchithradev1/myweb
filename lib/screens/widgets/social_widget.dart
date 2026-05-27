@@ -21,13 +21,12 @@ class SocialWidget extends StatelessWidget {
       children: [
 
       Container(
-
         height: 40,
         width: 40,
         decoration: BoxDecoration(
           color: Colors.transparent,
           shape: BoxShape.circle,
-          border: Border.all(color: Color(0XFF01529A).withOpacity(0.5),)
+          border: Border.all(color: Colors.black38,)
         ),
         child: Center(
           child: IconButton(
@@ -42,7 +41,7 @@ class SocialWidget extends StatelessWidget {
             },
             icon: const FaIcon(
               FontAwesomeIcons.linkedinIn,
-              color: Color(0XFF01529A),
+              color: Colors.black87,
               size: 15,
             ),
           ),
@@ -50,20 +49,19 @@ class SocialWidget extends StatelessWidget {
       ),
         const SizedBox(width: 10,),
       Container(
-
         height: 40,
         width: 40,
         decoration: BoxDecoration(
           color: Colors.transparent,
-          shape: BoxShape.circle, border: Border.all(color: Color(0XFF01529A).withOpacity(0.5),)
+          shape: BoxShape.circle, border: Border.all(color: Colors.black38,)
         ),
         child: Center(
           child: IconButton(
             hoverColor: AppColors.paleSlate,
             onPressed: (){},
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.dribbble,
-              color: Color(0XFF01529A),
+              color: Colors.black87,
               size: 15,
             ),
           ),
@@ -71,21 +69,20 @@ class SocialWidget extends StatelessWidget {
       ),
         const SizedBox(width: 10,),
         Container(
-
           height: 40,
           width: 40,
           decoration: BoxDecoration(
               color: Colors.transparent,
               shape: BoxShape.circle,
-              border: Border.all(color: Color(0XFF01529A).withOpacity(0.5),)
+              border: Border.all(color: Colors.black38,)
           ),
           child: Center(
             child: IconButton(
               hoverColor: AppColors.paleSlate,
               onPressed: (){},
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.upwork,
-                color: Color(0XFF01529A),
+                color: Colors.black87,
                 size: 15,
               ),
             ),
@@ -93,21 +90,20 @@ class SocialWidget extends StatelessWidget {
         ),
         const SizedBox(width: 10,),
         Container(
-
           height: 40,
           width: 40,
           decoration: BoxDecoration(
               color: Colors.transparent,
               shape: BoxShape.circle,
-              border: Border.all(color: Color(0XFF01529A).withOpacity(0.5),)
+              border: Border.all(color: Colors.black38,)
           ),
           child: Center(
             child: IconButton(
               hoverColor: AppColors.paleSlate,
               onPressed: (){},
-              icon: FaIcon(
+              icon: const FaIcon(
                 FontAwesomeIcons.github,
-                color: Color(0XFF01529A),
+                color: Colors.black87,
                 size: 15,
               ),
             ),

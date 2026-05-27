@@ -31,17 +31,17 @@ class DownloadCVButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0XFF01529A).withOpacity(0.5)),
+          border: Border.all(color: Colors.black87),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Download CV",
-              style: GoogleFonts.b612(color: AppColors.ebony),
+              style: GoogleFonts.b612(color: Colors.black87),
             ),
             const SizedBox.square(dimension: 12),
-            FaIcon(FontAwesomeIcons.download, color: Colors.black.withOpacity(0.6), size: 18),
+            const FaIcon(FontAwesomeIcons.download, color: Colors.black87, size: 16),
           ],
         ),
       ),

@@ -80,6 +80,12 @@
       "languageVersion": "3.8"
     },
     {
+      "name": "flutter_animate",
+      "rootUri": "file:///Users/amals/.pub-cache/hosted/pub.dev/flutter_animate-4.5.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_blur",
       "rootUri": "file:///Users/amals/.pub-cache/hosted/pub.dev/flutter_blur-0.0.2",
       "packageUri": "lib/",
@@ -90,6 +96,12 @@
       "rootUri": "file:///Users/amals/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "flutter_shaders",
+      "rootUri": "file:///Users/amals/.pub-cache/hosted/pub.dev/flutter_shaders-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_test",

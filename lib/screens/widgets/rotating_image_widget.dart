@@ -10,13 +10,15 @@ class RotatingImageContainer extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final bool isMobile = size.width < 760;
 
-    final double containerSize = isMobile ? size.width * 0.3 : size.width * 0.4;
+    final double sidebarWidth = size.width >= 1000 ? 280 : 0;
+    final double availableWidth = size.width - sidebarWidth;
+    final double containerSize = (isMobile ? availableWidth * 0.3 : availableWidth * 0.35).clamp(200.0, 380.0);
 
     return Container(
       height: containerSize,
       width: containerSize,
       padding: const EdgeInsets.all(0),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.transparent,
       ),

@@ -68,10 +68,10 @@ class _MyServicesWidgetState extends State<MyServicesWidget> {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: hovered ? Color(0XFF01529A).withOpacity(0.5) : Colors.transparent,
+                    color: hovered ? Colors.black.withOpacity(0.12) : Colors.transparent,
                   ),
                   gradient: hovered
-                      ? LinearGradient(colors: [Colors.white, Colors.white])
+                      ? const LinearGradient(colors: [Color(0xFFF2F2F7), Color(0xFFF2F2F7)])
                       : null,
                   color: hovered ? null : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
@@ -84,7 +84,7 @@ class _MyServicesWidgetState extends State<MyServicesWidget> {
                       hovered
                           ? FontAwesomeIcons.arrowTrendUp
                           : FontAwesomeIcons.arrowTrendDown,
-                      color: hovered ?  Color(0XFF45D1FC) : AppColors.studio ,
+                      color: hovered ? Colors.black : Colors.black45,
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -132,7 +132,7 @@ class _MyServicesWidgetState extends State<MyServicesWidget> {
                         hovered
                             ? FontAwesomeIcons.arrowTrendUp
                             : FontAwesomeIcons.arrowTrendDown,
-                        color: hovered ? Colors.white : AppColors.studio,
+                        color: hovered ? Colors.white : Colors.black45,
                       ),
                     )
                   ],

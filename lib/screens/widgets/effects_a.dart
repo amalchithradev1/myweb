@@ -18,8 +18,7 @@ class _AnimatedParticleBackgroundState extends State<AnimatedParticleBackground>
       child: AnimatedBackground(
         behaviour: RandomParticleBehaviour(
           options: ParticleOptions(
-            // baseColor: Color(0XFF45D1FC),
-            baseColor: Color(0XFF01529A),
+            baseColor: Colors.black,
             spawnOpacity: 0.0,
             opacityChangeRate: 0.25,
             minOpacity: 0.03,

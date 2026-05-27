@@ -17,8 +17,7 @@ class _AnimatedParticleMobileHomeBackgroundState extends State<AnimatedParticleM
       child: AnimatedBackground(
         behaviour: RandomParticleBehaviour(
           options: ParticleOptions(
-            // baseColor: Color(0XFF45D1FC),
-            baseColor: Color(0XFF01529A),
+            baseColor: Colors.black,
             spawnOpacity: 0.0,
             opacityChangeRate: 0.25,
             minOpacity: 0.05,

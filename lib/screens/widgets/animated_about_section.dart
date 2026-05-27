@@ -35,56 +35,63 @@ class _AnimatedAboutScrollSectionState extends State<AnimatedAboutScrollSection>
       });
     });
 
+    final double sidebarWidth = MediaQuery.of(context).size.width >= 1000 ? 280 : 0;
+    final double availableWidth = MediaQuery.of(context).size.width - sidebarWidth;
+
     return Container(
       width: double.infinity,
       height: 550,
-      // color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(lines.length, (index) {
-              double startOffset = index * lineHeight;
-              double endOffset = startOffset + lineHeight * 2;
+          // Wrap text block in Expanded so it gracefully wraps and fills remaining space instead of causing overflow
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(lines.length, (index) {
+                double startOffset = index * lineHeight;
+                double endOffset = startOffset + lineHeight * 2;
 
-              // Calculate visibility progress
-              double visibility = (scrollOffset - startOffset) / (endOffset - startOffset);
-              visibility = visibility.clamp(0.0, 1.0);
+                // Calculate visibility progress
+                double visibility = (scrollOffset - startOffset) / (endOffset - startOffset);
+                visibility = visibility.clamp(0.0, 1.0);
 
-              return AnimatedOpacity(
-                opacity: visibility,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedSlide(
-                  offset: Offset(0, 1 - visibility), // slide up while appearing
+                return AnimatedOpacity(
+                  opacity: visibility,
                   duration: const Duration(milliseconds: 400),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
-                    child: Text(
-                      lines[index],
-                      style: GoogleFonts.b612(
-                        color: Colors.black,
-                        fontSize: MediaQuery.of(context).size.width * 0.013,
-                        letterSpacing: 3
+                  child: AnimatedSlide(
+                    offset: Offset(0, 1 - visibility),
+                    duration: const Duration(milliseconds: 400),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
+                      child: Text(
+                        lines[index],
+                        style: GoogleFonts.b612(
+                          color: Colors.black87,
+                          fontSize: (availableWidth * 0.014).clamp(13.0, 16.0),
+                          letterSpacing: 2,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           ),
+          const SizedBox(width: 40),
+          // Clamped responsive image container matching remaining width
           Container(
-            height: 550,
-            width: MediaQuery.of(context).size.width * 0.3,
+            height: 460,
+            width: (availableWidth * 0.35).clamp(200.0, 360.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Opacity(
-                opacity: 1,
-                child: Image.asset("assets/images/me5.png", fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(24),
+              child: Image.asset(
+                "assets/images/me1.jpeg",
+                fit: BoxFit.cover,
               ),
             ),
           ),
