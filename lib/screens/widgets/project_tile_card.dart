@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
@@ -42,22 +43,71 @@ class ProjectTile extends StatefulWidget {
 class _ProjectTileState extends State<ProjectTile> {
   late VideoPlayerController _controller;
   bool _isHovered = false;
+  bool _isVideo = true;
+  bool _isControllerInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(widget.project.videoPath)
-      ..setVolume(0)
-      ..setLooping(true)
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.play(); // Auto-play looping background video
-      });
+    final String path = widget.project.videoPath.toLowerCase();
+    _isVideo = path.endsWith('.mp4') || path.endsWith('.mov') || path.endsWith('.avi');
+
+    if (_isVideo) {
+      final String videoPath = widget.project.videoPath;
+      
+      // Dynamic Web Production path resolver
+      Uri videoUri;
+      if (kIsWeb) {
+        final String basePath = Uri.base.toString();
+        // Extract base directory up to index.html/hash/query if any
+        final int queryIdx = basePath.indexOf('?');
+        final int hashIdx = basePath.indexOf('#');
+        int endIdx = basePath.length;
+        if (queryIdx != -1) endIdx = queryIdx;
+        if (hashIdx != -1 && hashIdx < endIdx) endIdx = hashIdx;
+        
+        String cleanBase = basePath.substring(0, endIdx);
+        if (cleanBase.endsWith('index.html')) {
+          cleanBase = cleanBase.substring(0, cleanBase.length - 10);
+        }
+        if (!cleanBase.endsWith('/')) {
+          cleanBase = '$cleanBase/';
+        }
+        
+        // Remove duplicate "assets/" from project path if it exists, then append to assets/assets/
+        final String relativeAsset = videoPath.startsWith('assets/') 
+            ? videoPath.substring(7) 
+            : videoPath;
+        
+        final String absoluteUrl = '${cleanBase}assets/assets/$relativeAsset';
+        videoUri = Uri.parse(absoluteUrl);
+      } else {
+        videoUri = Uri.parse(videoPath);
+      }
+
+      _controller = kIsWeb 
+          ? VideoPlayerController.networkUrl(videoUri)
+          : VideoPlayerController.asset(videoPath)
+        ..setVolume(0)
+        ..setLooping(true)
+        ..initialize().then((_) {
+          if (mounted) {
+            setState(() {
+              _isControllerInitialized = true;
+            });
+            _controller.play(); // Auto-play looping background video
+          }
+        }).catchError((e) {
+          debugPrint("Video initialization failed for URI ($videoUri): $e");
+        });
+    }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (_isVideo) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
@@ -205,7 +255,18 @@ class _ProjectTileState extends State<ProjectTile> {
   }
 
   Widget _buildVideoDisplay() {
-    return _controller.value.isInitialized
+    if (!_isVideo) {
+      // Direct, zero-lag, canvas-integrated GIF/WebP animation rendering!
+      // This is physically immune to Flutter Web scroll overlay drift!
+      return SizedBox.expand(
+        child: Image.asset(
+          widget.project.videoPath,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
+    return _isControllerInitialized
         ? SizedBox.expand(
             child: FittedBox(
               fit: BoxFit.cover, // Covering mockup screen completely
